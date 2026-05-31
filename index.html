@@ -4,6 +4,7 @@ html_content = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAPTOR B2B Wholesale Portal | ระบบสั่งซื้อราคาส่งอย่างเป็นทางการ</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -30,14 +31,31 @@ html_content = """<!DOCTYPE html>
             border-color: rgba(255, 107, 0, 0.3);
             box-shadow: 0 10px 30px -10px rgba(255, 107, 0, 0.15);
         }
+        .product-image {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem;
+        }
+        .image-container {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            background-color: #000;
+        }
     </style>
 </head>
 <body class="text-gray-200 antialiased min-h-screen flex flex-col">
 
+    <!-- Top Announcement Bar -->
     <div class="bg-gradient-to-r from-orange-600 to-amber-600 text-white text-xs md:text-sm font-medium py-2 px-4 text-center">
         <i class="fa-solid fa-triangle-exclamation mr-2"></i> นโยบายสำคัญ: ห้ามตัดราคาและจำหน่ายต่ำกว่าราคาขั้นต่ำ (MAP) ที่บริษัทกำหนดโดยเด็ดขาด!
     </div>
 
+    <!-- Navigation Header -->
     <header class="sticky top-0 z-40 bg-[#0b0f17]/90 backdrop-blur-md border-b border-gray-800 px-4 lg:px-8 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-3">
             <div class="bg-gradient-to-br from-orange-600 to-amber-500 text-white p-2.5 rounded-xl font-black tracking-wider text-xl shadow-lg shadow-orange-600/20">
@@ -64,8 +82,10 @@ html_content = """<!DOCTYPE html>
         </div>
     </header>
 
+    <!-- Main Content Container -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 lg:px-8 py-8">
         
+        <!-- Hero Section -->
         <section class="mb-12 text-center md:text-left md:flex md:items-center md:justify-between bg-gradient-to-r from-gray-900 to-slate-900 rounded-3xl p-8 md:p-12 border border-gray-800 shadow-2xl relative overflow-hidden">
             <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-orange-600/10 rounded-full blur-3xl"></div>
             <div class="absolute -left-16 -top-16 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
@@ -107,6 +127,7 @@ html_content = """<!DOCTYPE html>
             </div>
         </section>
 
+        <!-- Terms and Conditions Quick View -->
         <section id="terms" class="mb-12 bg-[#111827] border border-gray-800 rounded-2xl p-6 shadow-xl">
             <h2 class="text-xl font-bold text-white mb-4 flex items-center">
                 <i class="fa-solid fa-shield-halved text-orange-500 mr-2.5"></i> ข้อตกลงและเงื่อนไขการเป็นตัวแทนจำหน่ายแบรนด์ RAPTOR
@@ -139,6 +160,7 @@ html_content = """<!DOCTYPE html>
             </div>
         </section>
 
+        <!-- Dynamic Product Catalog Section -->
         <section id="catalog" class="mb-12">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                 <div>
@@ -152,12 +174,16 @@ html_content = """<!DOCTYPE html>
                 </div>
             </div>
 
+            <!-- Product Grid -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="product-container">
-                </div>
+                <!-- JavaScript will populate products here dynamically -->
+            </div>
         </section>
 
+        <!-- Interactive Wholesale Cart & Checkout Section -->
         <section id="cart-section" class="grid lg:grid-cols-3 gap-8 items-start mb-16">
             
+            <!-- Cart Items List (2/3 width) -->
             <div class="lg:col-span-2 bg-[#131a26] border border-gray-800 rounded-2xl p-6 shadow-xl">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center justify-between">
                     <span class="flex items-center"><i class="fa-solid fa-list-check text-orange-500 mr-2.5"></i> รายการสั่งซื้อที่เลือก</span>
@@ -167,6 +193,7 @@ html_content = """<!DOCTYPE html>
                 </h3>
                 
                 <div id="cart-items-wrapper" class="space-y-3 max-h-[450px] overflow-y-auto pr-2">
+                    <!-- Dynamic Cart Items -->
                     <div class="text-center py-12 text-gray-500 text-sm">
                         <i class="fa-solid fa-basket-shopping text-3xl mb-3 block opacity-30"></i>
                         ยังไม่มีสินค้าในตะกร้า กรุณาเลือกจำนวนสินค้าด้านบนเพื่อเริ่มคำนวณราคาส่ง
@@ -174,6 +201,7 @@ html_content = """<!DOCTYPE html>
                 </div>
             </div>
 
+            <!-- Pricing Summary Box (1/3 width) -->
             <div class="bg-gradient-to-b from-[#182232] to-[#131a26] border border-gray-700/60 rounded-2xl p-6 shadow-2xl sticky top-24">
                 <h3 class="text-lg font-bold text-white mb-4 flex items-center border-b border-gray-800 pb-3">
                     <i class="fa-solid fa-calculator text-blue-400 mr-2.5"></i> สรุปมูลค่าใบสั่งซื้อราคาส่ง
@@ -202,6 +230,7 @@ html_content = """<!DOCTYPE html>
                     </div>
                 </div>
 
+                <!-- Wholesale Verification / Checkout Action -->
                 <div class="space-y-3">
                     <div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800 text-xs text-gray-400 space-y-1.5">
                         <div class="flex items-center text-amber-500 font-medium">
@@ -223,10 +252,12 @@ html_content = """<!DOCTYPE html>
 
     </main>
 
+    <!-- Premium Footer & Contact Information Section -->
     <footer id="contact" class="bg-[#070a10] border-t border-gray-800 mt-auto">
         <div class="max-w-7xl w-full mx-auto px-4 lg:px-8 py-12">
             <div class="grid md:grid-cols-12 gap-8 items-start">
                 
+                <!-- Brand Info Area -->
                 <div class="md:col-span-5 space-y-4">
                     <div class="flex items-center space-x-3">
                         <div class="bg-gradient-to-br from-orange-600 to-amber-500 text-white p-2 rounded-xl font-black tracking-wider text-lg">
@@ -239,6 +270,7 @@ html_content = """<!DOCTYPE html>
                     </p>
                 </div>
 
+                <!-- Official Contact Fields -->
                 <div class="md:col-span-4 space-y-3 text-sm text-gray-400">
                     <h4 class="text-white font-bold text-base uppercase tracking-wider mb-2 border-l-2 border-orange-500 pl-2">ข้อมูลติดต่อสำนักงาน</h4>
                     <div class="flex items-start space-x-3">
@@ -259,19 +291,20 @@ html_content = """<!DOCTYPE html>
                     </div>
                 </div>
 
+                <!-- Social Following Area -->
                 <div class="md:col-span-3 space-y-4">
                     <h4 class="text-white font-bold text-base uppercase tracking-wider border-l-2 border-orange-500 pl-2">Shop & Follow Us</h4>
                     <p class="text-xs text-gray-500">ติดตามข่าวสาร โปรโมชั่นตัวแทน และสื่อโฆษณาผ่านช่องทางโซเชียลมีเดียหลัก</p>
                     <div class="flex flex-col space-y-2">
-                        <a href="#" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
+                        <a href="https://www.tiktok.com/@raptor.global.imp?_r=1&_t=ZS-96e96teMngr" target="_blank" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
                             <i class="fa-brands fa-tiktok text-base text-pink-500"></i>
                             <span>TikTok @raptorofficial</span>
                         </a>
-                        <a href="#" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
+                        <a href="https://www.facebook.com/raptorsportofficial?locale=th_TH" target="_blank" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
                             <i class="fa-brands fa-facebook text-base text-blue-500"></i>
                             <span>Facebook Page: RAPTOR Thailand</span>
                         </a>
-                        <a href="#" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
+                        <a href="https://lin.ee/qtuszPa" target="_blank" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
                             <i class="fa-solid fa-message text-base text-emerald-500"></i>
                             <span>LINE Chat Official Support</span>
                         </a>
@@ -290,6 +323,7 @@ html_content = """<!DOCTYPE html>
         </div>
     </footer>
 
+    <!-- Core App Logic JavaScript -->
     <script>
         // Static Wholesale Product Matrix Configuration
         const products = [
@@ -297,7 +331,7 @@ html_content = """<!DOCTYPE html>
                 id: "p1",
                 name: "สเปรย์เย็น (Sports Ice Cold Spray)",
                 spec: "ขนาด 250ml / สูตรน้ำแข็งดับเบิ้ลคูล สำหรับนักกีฬา",
-                icon: "fa-snowflake text-blue-400",
+                image: "Gemini_Generated_Image_td8ebptd8ebptd8e (1).png",
                 tiers: [
                     { min: 50, price: 61 },
                     { min: 100, price: 59 },
@@ -310,7 +344,7 @@ html_content = """<!DOCTYPE html>
                 id: "p2",
                 name: "สเปรย์ร้อน (Sport Warming Spray)",
                 spec: "ขนาด 150ml / วอร์มกล้ามเนื้อก่อนและหลังกีฬาคลายปวด",
-                icon: "fa-fire-flame-curved text-orange-500",
+                image: "S__117481475 (1).jpg",
                 tiers: [
                     { min: 50, price: 61 },
                     { min: 100, price: 59 },
@@ -323,7 +357,7 @@ html_content = """<!DOCTYPE html>
                 id: "p3",
                 name: "น้ำมันนวดหัวลูกกลิ้ง (Massage Oil Steel Rollerball)",
                 spec: "ขนาด 10ml / หัวลูกกลิ้งสแตนเลส สารสกัดธรรมชาตินุ่มนวล",
-                icon: "fa-oil-can text-amber-500",
+                image: "Gemini_Generated_Image_o4ty0fo4ty0fo4ty.png",
                 tiers: [
                     { min: 50, price: 71 },
                     { min: 100, price: 68 },
@@ -336,7 +370,7 @@ html_content = """<!DOCTYPE html>
                 id: "p4",
                 name: "แผ่นแปะเย็นประคบ (Raptor Cool Patch)",
                 spec: "บรรจุ 6 แผ่น/กล่อง | ขนาด 7x10 cm แอดวานซ์เมนทอล",
-                icon: "fa-sheet-plastic text-teal-400",
+                image: "Gemini_Generated_Image_sr5hcisr5hcisr5h.png",
                 tiers: [
                     { min: 50, price: 93 },
                     { min: 100, price: 90 },
@@ -349,7 +383,7 @@ html_content = """<!DOCTYPE html>
                 id: "p5",
                 name: "เจลให้พลังงานทันที (Raptor Go Energy Gel)",
                 spec: "รสโคล่า (Cola Flavor) บรรจุ 10 ซอง/กล่องใหญ่ ให้พลังงาน 120 kcal",
-                icon: "fa-bolt text-yellow-400",
+                image: "Gemini_Generated_Image_dihrcjdihrcjdihr.png",
                 tiers: [
                     { min: 50, price: 170 },
                     { min: 100, price: 164 },
@@ -362,7 +396,7 @@ html_content = """<!DOCTYPE html>
                 id: "p6",
                 name: "เครื่องดื่มเกลือแร่ (Raptor Speed Water Charge)",
                 spec: "กลิ่นแตงโม ไฮเดรชันวิตามิน B1/B6/B12 | บรรจุ 6g x 20 ซอง",
-                icon: "fa-bottle-water text-cyan-400",
+                image: "Gemini_Generated_Image_xg4wwyxg4wwyxg4w.png",
                 tiers: [
                     { min: 50, price: 241 },
                     { min: 100, price: 232 },
@@ -370,19 +404,6 @@ html_content = """<!DOCTYPE html>
                     { min: 10000, price: 222 }
                 ],
                 defaultPrice: 250
-            },
-            {
-                id: "p7",
-                name: "หัวพ่นแก๊สกระป๋องอเนกประสงค์ (Flame Thrower)",
-                spec: "สามารถคละรุ่น v.1, v.2, v.3 ได้ ทนทาน แข็งแรง ปลอดภัยสูง",
-                icon: "fa-gun text-red-400",
-                tiers: [
-                    { min: 50, price: 177 },
-                    { min: 100, price: 170 },
-                    { min: 1000, price: 167 },
-                    { min: 10000, price: 163 }
-                ],
-                defaultPrice: 190
             }
         ];
 
@@ -426,9 +447,9 @@ html_content = """<!DOCTYPE html>
                 const cardHtml = `
                     <div class="custom-card rounded-2xl p-5 flex flex-col justify-between transition-all relative">
                         <div>
-                            <div class="flex items-start justify-between mb-2">
-                                <div class="bg-gray-900 p-2.5 rounded-xl border border-gray-800">
-                                    <i class="fa-solid ${prod.icon} text-lg w-6 h-6 flex items-center justify-center"></i>
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="image-container shadow-lg">
+                                    <img src="${prod.image}" alt="${prod.name}" class="product-image" onerror="this.src='https://placehold.co/150x150/1f2937/4b5563?text=RAPTOR'">
                                 </div>
                                 <div class="text-right">
                                     <span class="text-[10px] text-gray-500 uppercase tracking-wider block">เรทราคาปัจจุบัน</span>
@@ -439,12 +460,14 @@ html_content = """<!DOCTYPE html>
                             <h3 class="text-base font-bold text-white mb-1 leading-tight">${prod.name}</h3>
                             <p class="text-xs text-gray-400 mb-4 h-8 overflow-hidden">${prod.spec}</p>
                             
+                            <!-- Price Tiers Grid Box layout -->
                             <div class="space-y-1 bg-black/20 p-2 rounded-xl mb-4 border border-gray-800/60">
                                 <div class="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1 px-1">ตารางขั้นบันไดราคาขายส่ง</div>
                                 ${tierLabels}
                             </div>
                         </div>
 
+                        <!-- Quantity Control Area Selector inputs fields -->
                         <div>
                             <div class="flex items-center justify-between mb-3 bg-gray-900/80 p-1.5 rounded-xl border border-gray-800">
                                 <button onclick="adjustQty('${prod.id}', -1)" class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-bold text-center transition-colors flex items-center justify-center">-</button>
@@ -452,6 +475,7 @@ html_content = """<!DOCTYPE html>
                                 <button onclick="adjustQty('${prod.id}', 1)" class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-bold text-center transition-colors flex items-center justify-center">+</button>
                             </div>
                             
+                            <!-- Preset Buttons for quick high quantity operations -->
                             <div class="grid grid-cols-4 gap-1.5">
                                 <button onclick="setPresetQty('${prod.id}', 50)" class="text-[10px] bg-gray-900 hover:bg-orange-600/20 hover:text-orange-400 border border-gray-800 py-1 rounded font-medium transition-all">+50</button>
                                 <button onclick="setPresetQty('${prod.id}', 100)" class="text-[10px] bg-gray-900 hover:bg-orange-600/20 hover:text-orange-400 border border-gray-800 py-1 rounded font-medium transition-all">+100</button>
@@ -552,8 +576,8 @@ html_content = """<!DOCTYPE html>
                 cartHtml += `
                     <div class="bg-gray-900/70 p-4 rounded-xl border border-gray-800 flex items-center justify-between flex-wrap md:flex-nowrap gap-3">
                         <div class="flex items-center space-x-3">
-                            <div class="text-orange-500 bg-gray-800 p-2 rounded-lg text-sm border border-gray-700">
-                                <i class="fa-solid ${prod.icon}"></i>
+                            <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-700 flex-shrink-0">
+                                <img src="${prod.image}" alt="${prod.name}" class="product-image" onerror="this.src='https://placehold.co/150x150/1f2937/4b5563?text=RAPTOR'">
                             </div>
                             <div>
                                 <h4 class="text-sm font-bold text-white">${prod.name}</h4>
@@ -633,7 +657,7 @@ html_content = """<!DOCTYPE html>
 """
 
 # Write the dynamic portal to an HTML output file
-filename = "raptor_wholesale_portal.html"
+filename = "raptor_wholesale_portal_updated.html"
 with open(filename, "w", encoding="utf-8") as f:
     f.write(html_content)
 

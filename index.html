@@ -1,456 +1,640 @@
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAPTOR — Sport Performance | สเปรย์เย็น &amp; สมุนไพรสปอร์ตพรีเมียม</title>
-<meta name="description" content="RAPTOR แบรนด์ดูแลกล้ามเนื้อสายสปอร์ตพรีเมียม สเปรย์เย็น Ice Cold Spray และโรลออนสมุนไพร พร้อมลุยทุกสนาม">
-<meta name="theme-color" content="#060a14">
-<meta property="og:title" content="RAPTOR — Sport Performance">
-<meta property="og:description" content="สเปรย์เย็นและสมุนไพรสปอร์ตพรีเมียม พร้อมลุยทุกสนาม">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#060a14;--bg2:#0a1426;--panel:rgba(255,255,255,.05);--line:rgba(125,211,252,.16);
-  --ice:#7dd3fc;--cyan:#38bdf8;--blue:#2563eb;--blue-deep:#1d4ed8;
-  --txt:#eef4ff;--mut:#9fb2cf;--white:#fff;
-  --grad-ice:linear-gradient(120deg,#e0f2fe 0%,#7dd3fc 45%,#38bdf8 100%);
-  --radius:26px;--maxw:1200px;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:"Prompt","Sora",system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-.font-head{font-family:"Sora","Prompt",sans-serif}
-
-/* ---------- ambient background ---------- */
-.aurora{position:fixed;inset:0;z-index:-2;background:
-  radial-gradient(60% 50% at 78% 8%,rgba(56,189,248,.28),transparent 60%),
-  radial-gradient(50% 45% at 12% 18%,rgba(37,99,235,.30),transparent 60%),
-  radial-gradient(70% 60% at 50% 110%,rgba(14,165,233,.18),transparent 60%),
-  linear-gradient(180deg,#060a14,#070d1c 40%,#060a14)}
-.grid-overlay{position:fixed;inset:0;z-index:-1;opacity:.4;background-image:
-  linear-gradient(rgba(125,211,252,.05) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(125,211,252,.05) 1px,transparent 1px);
-  background-size:54px 54px;mask-image:radial-gradient(circle at 50% 30%,#000 0%,transparent 75%)}
-
-/* ---------- nav ---------- */
-header{position:sticky;top:0;z-index:50;transition:.3s}
-header.scrolled{background:rgba(6,10,20,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-.brand{display:flex;align-items:center;gap:12px}
-.brand .mark{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-family:"Sora";font-weight:800;font-size:22px;color:#06121f;
-  background:var(--grad-ice);box-shadow:0 8px 24px rgba(56,189,248,.4)}
-.brand b{font-family:"Sora";font-weight:800;letter-spacing:.22em;font-size:19px}
-.brand small{display:block;font-size:10px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase;margin-top:-2px}
-.nav-links{display:flex;align-items:center;gap:30px}
-.nav-links a{color:var(--mut);font-size:15px;transition:.2s}
-.nav-links a:hover{color:var(--white)}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-family:"Prompt";border-radius:999px;padding:13px 26px;font-size:15px;cursor:pointer;border:0;transition:transform .2s,box-shadow .2s,background .2s;white-space:nowrap}
-.btn-primary{background:var(--grad-ice);color:#06121f;box-shadow:0 10px 30px rgba(56,189,248,.35)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(56,189,248,.5)}
-.btn-ghost{background:rgba(255,255,255,.06);color:var(--white);border:1px solid var(--line)}
-.btn-ghost:hover{background:rgba(255,255,255,.12)}
-.nav-toggle{display:none;background:none;border:1px solid var(--line);color:#fff;width:44px;height:44px;border-radius:12px;font-size:20px;cursor:pointer}
-
-/* ---------- hero ---------- */
-.hero{position:relative;padding:46px 0 90px}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-.tag{display:inline-flex;align-items:center;gap:9px;padding:9px 17px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);font-size:13.5px;color:var(--ice);margin-bottom:24px}
-.tag .dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 12px #34d399}
-.hero h1{font-family:"Sora";font-weight:800;font-size:clamp(40px,6.4vw,76px);line-height:.98;letter-spacing:-.01em}
-.hero h1 .grad{background:var(--grad-ice);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p.lead{font-size:clamp(16px,1.7vw,20px);color:var(--mut);max-width:540px;margin:24px 0 34px}
-.hero-cta{display:flex;flex-wrap:wrap;gap:14px}
-.trust{display:flex;flex-wrap:wrap;gap:24px;margin-top:34px;color:var(--mut);font-size:14.5px}
-.trust span{display:inline-flex;align-items:center;gap:8px}
-.trust svg{width:18px;height:18px;stroke:var(--ice);fill:none;stroke-width:2}
-.stars{color:#fbbf24;letter-spacing:1px}
-
-.hero-stage{position:relative;display:grid;place-items:center;min-height:540px}
-.halo{position:absolute;width:min(420px,80%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.45),transparent 65%);filter:blur(20px)}
-.ring{position:absolute;width:min(440px,86%);aspect-ratio:1;border-radius:50%;border:1px solid var(--line);
-  -webkit-mask:linear-gradient(#000,transparent 75%);mask:linear-gradient(#000,transparent 75%)}
-.ring.r2{width:min(320px,64%);animation:spin 24s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.hero-product{position:relative;z-index:2;width:min(430px,90%);filter:drop-shadow(0 40px 60px rgba(0,0,0,.55));animation:float 6s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-.price-pill{position:absolute;z-index:3;right:2%;bottom:14%;background:rgba(9,16,30,.82);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:18px;padding:14px 18px;text-align:right;box-shadow:0 20px 40px rgba(0,0,0,.4)}
-.price-pill small{color:var(--ice);font-size:12px;letter-spacing:.15em}
-.price-pill b{display:block;font-family:"Sora";font-size:30px;line-height:1.1}
-.float-chip{position:absolute;z-index:3;left:0;top:16%;background:rgba(9,16,30,.82);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;padding:11px 15px;font-size:13px;display:flex;align-items:center;gap:9px;animation:float 6s ease-in-out infinite .6s}
-.float-chip .ic{width:30px;height:30px;border-radius:9px;background:var(--grad-ice);display:grid;place-items:center;color:#06121f;font-weight:800}
-
-/* ---------- marquee ---------- */
-.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);overflow:hidden;padding:18px 0}
-.marquee .track{display:flex;gap:54px;white-space:nowrap;width:max-content;animation:scroll 26s linear infinite;font-family:"Sora";font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);font-size:15px}
-.marquee .track span{display:inline-flex;align-items:center;gap:54px}
-.marquee .track i{color:var(--ice);font-style:normal}
-@keyframes scroll{to{transform:translateX(-50%)}}
-
-/* ---------- sections ---------- */
-section.block{padding:96px 0}
-.sec-head{max-width:680px;margin:0 auto 56px;text-align:center}
-.eyebrow{color:var(--ice);font-family:"Sora";font-weight:700;letter-spacing:.28em;font-size:13px;text-transform:uppercase}
-.sec-head h2{font-family:"Sora";font-weight:800;font-size:clamp(30px,4.4vw,48px);line-height:1.08;margin-top:14px}
-.sec-head p{color:var(--mut);margin-top:16px;font-size:17px}
-
-/* products */
-.products{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.product{position:relative;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s}
-.product:hover{transform:translateY(-6px);border-color:rgba(125,211,252,.45);box-shadow:0 30px 60px rgba(0,0,0,.45)}
-.product .media{position:relative;height:300px;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 30%,rgba(56,189,248,.18),transparent 70%)}
-.product .media img{height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 24px 34px rgba(0,0,0,.5))}
-.product .badge{position:absolute;top:16px;left:16px;background:var(--grad-ice);color:#06121f;font-weight:700;font-size:12px;padding:6px 13px;border-radius:999px}
-.product .body{padding:22px 24px 26px;display:flex;flex-direction:column;flex:1}
-.product .kicker{color:var(--ice);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
-.product h3{font-family:"Sora";font-weight:700;font-size:21px;margin:7px 0 9px;line-height:1.2}
-.product .body p{color:var(--mut);font-size:14.5px;flex:1}
-.product .foot{display:flex;align-items:center;justify-content:space-between;margin-top:20px;gap:12px}
-.product .price{font-family:"Sora";font-weight:800;font-size:24px}
-.product .price s{font-size:14px;color:var(--mut);font-weight:400;margin-left:7px}
-
-/* features */
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.feature{padding:34px 30px;border-radius:var(--radius);border:1px solid var(--line);background:var(--panel);transition:.3s}
-.feature:hover{background:rgba(255,255,255,.08);transform:translateY(-4px)}
-.feature .ic{width:58px;height:58px;border-radius:16px;background:linear-gradient(145deg,rgba(56,189,248,.25),rgba(37,99,235,.18));border:1px solid var(--line);display:grid;place-items:center;margin-bottom:22px}
-.feature .ic svg{width:28px;height:28px;stroke:var(--ice);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.feature h3{font-family:"Sora";font-weight:700;font-size:22px;margin-bottom:10px}
-.feature p{color:var(--mut);font-size:15px}
-
-/* showcase split */
-.showcase{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
-.showcase .visual{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:radial-gradient(circle at 60% 30%,rgba(56,189,248,.2),transparent 70%)}
-.showcase .visual img{width:100%}
-.showcase h2{font-family:"Sora";font-weight:800;font-size:clamp(28px,4vw,44px);line-height:1.1}
-.showcase ul{list-style:none;margin:26px 0 32px;display:grid;gap:16px}
-.showcase li{display:flex;gap:13px;color:var(--mut);font-size:16px}
-.showcase li b{color:var(--txt);font-weight:600}
-.check{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:rgba(56,189,248,.18);border:1px solid var(--line);display:grid;place-items:center;margin-top:2px}
-.check svg{width:14px;height:14px;stroke:var(--ice);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center}
-.stat{padding:30px 18px;border-radius:20px;border:1px solid var(--line);background:var(--panel)}
-.stat b{font-family:"Sora";font-weight:800;font-size:clamp(30px,4vw,46px);background:var(--grad-ice);-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
-.stat span{color:var(--mut);font-size:14px}
-
-/* reviews */
-.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.review{padding:28px;border-radius:var(--radius);border:1px solid var(--line);background:var(--panel)}
-.review .mini{color:#fbbf24;letter-spacing:1px;margin-bottom:12px}
-.review p{color:var(--txt);font-size:15.5px;margin-bottom:18px}
-.review .who{display:flex;align-items:center;gap:12px}
-.review .av{width:42px;height:42px;border-radius:50%;background:var(--grad-ice);color:#06121f;display:grid;place-items:center;font-family:"Sora";font-weight:800}
-.review .who b{font-size:15px}
-.review .who small{color:var(--mut);font-size:13px;display:block}
-
-/* cta band */
-.cta-band{position:relative;border-radius:32px;overflow:hidden;border:1px solid var(--line);padding:64px 40px;text-align:center;
-  background:linear-gradient(135deg,rgba(37,99,235,.35),rgba(56,189,248,.18)),rgba(9,16,30,.6)}
-.cta-band::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(56,189,248,.4),transparent 50%);z-index:0}
-.cta-band>*{position:relative;z-index:1}
-.cta-band h2{font-family:"Sora";font-weight:800;font-size:clamp(30px,4.6vw,52px);line-height:1.06}
-.cta-band p{color:#d6e6ff;max-width:560px;margin:18px auto 32px;font-size:18px}
-.cta-band .hero-cta{justify-content:center}
-
-/* footer */
-footer{border-top:1px solid var(--line);padding:54px 0 40px;margin-top:30px}
-.foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;align-items:flex-start}
-.foot-grid p{color:var(--mut);font-size:14.5px;max-width:320px;margin-top:14px}
-.foot-links{display:flex;gap:46px;flex-wrap:wrap}
-.foot-col h4{font-family:"Sora";font-size:14px;letter-spacing:.1em;margin-bottom:14px;text-transform:uppercase;color:var(--ice)}
-.foot-col a{display:block;color:var(--mut);font-size:14.5px;margin-bottom:9px;transition:.2s}
-.foot-col a:hover{color:var(--white)}
-.copy{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);color:var(--mut);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-
-/* reveal */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
-
-@media(max-width:920px){
-  .hero-grid,.showcase{grid-template-columns:1fr;gap:30px}
-  .hero-stage{order:-1;min-height:420px}
-  .products,.features,.reviews{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .nav-links{display:none}
-  .nav-links.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;background:rgba(6,10,20,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:10px 22px 22px}
-  .nav-links.open a{padding:14px 0;border-bottom:1px solid var(--line)}
-  .nav-links.open .btn{margin-top:14px;justify-content:center}
-  .nav-toggle{display:block}
-  header .btn-primary.desk{display:none}
-  section.block{padding:70px 0}
-}
-@media(max-width:520px){
-  .trust{gap:14px}
-  .cta-band{padding:48px 22px}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}}
-</style>
-
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '462184846324554');
-fbq('track', 'PageView');
-</script>
-<!-- End Meta Pixel Code -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAPTOR B2B Wholesale Portal | ระบบสั่งซื้อราคาส่งอย่างเป็นทางการ</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chula+Charas:wght@400;700&family=Kanit:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0b0f17;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff9e00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-blue-text {
+            background: linear-gradient(135deg, #00d2ff 0%, #0066ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .custom-card {
+            background: linear-gradient(145deg, #131a26, #182232);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .custom-card:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(255, 107, 0, 0.15);
+        }
+    </style>
 </head>
-<body>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=462184846324554&ev=PageView&noscript=1"/></noscript>
+<body class="text-gray-200 antialiased min-h-screen flex flex-col">
 
-<div class="aurora"></div>
-<div class="grid-overlay"></div>
-
-<header id="header">
-  <div class="wrap nav">
-    <a href="#top" class="brand">
-      <span class="mark">R</span>
-      <span><b>RAPTOR</b><small>Sport Performance</small></span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#products">สินค้า</a>
-      <a href="#why">จุดเด่น</a>
-      <a href="#ice">Ice Cold Spray</a>
-      <a href="#reviews">รีวิว</a>
-      <a href="roll-on.html">โรลออนสมุนไพร</a>
-      <a class="btn btn-primary" href="https://lin.ee/X56gq67" target="_blank" rel="noopener" onclick="track('Lead')">สั่งซื้อ</a>
-    </nav>
-    <a class="btn btn-primary desk" href="https://lin.ee/X56gq67" target="_blank" rel="noopener" onclick="track('Lead')">สั่งซื้อ</a>
-    <button class="nav-toggle" id="navToggle" aria-label="เมนู">☰</button>
-  </div>
-</header>
-
-<a id="top"></a>
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div class="reveal in">
-      <span class="tag"><span class="dot"></span> Premium Cooling &amp; Herbal Sport Care</span>
-      <h1 class="font-head">COOL DOWN<br><span class="grad">LIKE AN ATHLETE</span></h1>
-      <p class="lead">RAPTOR แบรนด์ดูแลกล้ามเนื้อสายสปอร์ตพรีเมียม ทั้งสเปรย์เย็น Ice Cold Spray และโรลออนสมุนไพร ออกแบบมาเพื่อคนที่ซ้อมหนักและไม่หยุดเคลื่อนไหว — เย็นสดชื่น พร้อมลุยทุกสนาม</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="https://lin.ee/X56gq67" target="_blank" rel="noopener" onclick="track('Lead')">สั่งซื้อเลย ฿129 →</a>
-        <a class="btn btn-ghost" href="#products">ดูสินค้าทั้งหมด</a>
-      </div>
-      <div class="trust">
-        <span><span class="stars">★★★★★</span> 4.9/5 จากรีวิวลูกค้า</span>
-        <span><svg viewBox="0 0 24 24"><path d="M3 7h13v10H3z"/><path d="M16 10h4l1 3v4h-5z"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg> ส่งไวทั่วไทย</span>
-        <span><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg> สูตรพรีเมียม</span>
-      </div>
+    <div class="bg-gradient-to-r from-orange-600 to-amber-600 text-white text-xs md:text-sm font-medium py-2 px-4 text-center">
+        <i class="fa-solid fa-triangle-exclamation mr-2"></i> นโยบายสำคัญ: ห้ามตัดราคาและจำหน่ายต่ำกว่าราคาขั้นต่ำ (MAP) ที่บริษัทกำหนดโดยเด็ดขาด!
     </div>
-    <div class="hero-stage">
-      <div class="halo"></div>
-      <div class="ring"></div>
-      <div class="ring r2"></div>
-      <img class="hero-product" src="raptor-cool-spray.jpg" alt="RAPTOR Ice Cold Spray" width="430" height="430">
-      <div class="float-chip"><span class="ic">❄</span> เย็นทันที Cooling</div>
-      <div class="price-pill"><small>ICE COLD SPRAY</small><b>฿129</b></div>
-    </div>
-  </div>
-</section>
 
-<div class="marquee">
-  <div class="track">
-    <span><i>❄</i> INSTANT COOLING <i>•</i> SPORT READY <i>•</i> HERBAL CARE <i>•</i> PREMIUM LOOK <i>•</i> ส่งไวทั่วไทย <i>•</i></span>
-    <span><i>❄</i> INSTANT COOLING <i>•</i> SPORT READY <i>•</i> HERBAL CARE <i>•</i> PREMIUM LOOK <i>•</i> ส่งไวทั่วไทย <i>•</i></span>
-  </div>
-</div>
-
-<section class="block" id="products">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Shop RAPTOR</span>
-      <h2 class="font-head">เลือกตัวที่ใช่สำหรับคุณ</h2>
-      <p>ไลน์สินค้าสปอร์ตพรีเมียมของ RAPTOR ใช้ง่าย พกสะดวก เหมาะกับทั้งก่อนและหลังออกกำลังกาย</p>
-    </div>
-    <div class="products">
-      <article class="product reveal">
-        <div class="media"><span class="badge">Best Seller</span><img src="raptor-cool-spray.jpg" alt="RAPTOR Ice Cold Spray"></div>
-        <div class="body">
-          <span class="kicker">250 ml · Ice Cold Spray</span>
-          <h3>RAPTOR Sports Ice Cold Spray</h3>
-          <p>สเปรย์เย็นสูตรสปอร์ต ให้ความรู้สึกเย็นสดชื่นรวดเร็วระหว่างและหลังเล่นกีฬา พกง่าย ฉีดสะดวกทุกที่</p>
-          <div class="foot"><span class="price">฿129</span><a class="btn btn-primary" href="https://lin.ee/X56gq67" target="_blank" rel="noopener" onclick="track('Lead')">สั่งซื้อ</a></div>
+    <header class="sticky top-0 z-40 bg-[#0b0f17]/90 backdrop-blur-md border-b border-gray-800 px-4 lg:px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="bg-gradient-to-br from-orange-600 to-amber-500 text-white p-2.5 rounded-xl font-black tracking-wider text-xl shadow-lg shadow-orange-600/20">
+                RAPTOR
+            </div>
+            <div>
+                <span class="text-lg font-bold tracking-tight block text-white">OFFICIAL PARTNER</span>
+                <span class="text-[10px] text-orange-500 uppercase tracking-widest font-semibold block -mt-1">Wholesale Portal</span>
+            </div>
         </div>
-      </article>
-      <article class="product reveal">
-        <div class="media"><span class="badge">New Collection</span><img src="Artboard 1_0.jpg" alt="RAPTOR Ice เย็นx2 สูตรใหม่"></div>
-        <div class="body">
-          <span class="kicker">เย็น x2 · สูตรใหม่</span>
-          <h3>RAPTOR Ice — เย็น x2</h3>
-          <p>สเปรย์เย็นสูตรใหม่ ให้ความเย็นรวดเร็วเป็นสองเท่าระหว่างเล่นกีฬา เหมาะกับสายแข่งและซ้อมหนัก</p>
-          <div class="foot"><span class="price">฿149</span><a class="btn btn-primary" href="https://lin.ee/X56gq67" target="_blank" rel="noopener" onclick="track('Lead')">สั่งซื้อ</a></div>
+        
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+            <a href="#catalog" class="hover:text-orange-500 transition-colors">แคตตาล็อกราคาส่ง</a>
+            <a href="#terms" class="hover:text-orange-500 transition-colors">เงื่อนไขตัวแทนจำหน่าย</a>
+            <a href="#contact" class="hover:text-orange-500 transition-colors">ติดต่อบริษัท</a>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+            <a href="#cart-section" class="relative bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-xl transition-all flex items-center space-x-2 text-sm border border-gray-700">
+                <i class="fa-solid fa-basket-shopping text-orange-500 text-base"></i>
+                <span class="hidden sm:inline font-medium">ตะกร้าสั่งซื้อ</span>
+                <span id="cart-count-badge" class="bg-orange-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+            </a>
         </div>
-      </article>
-      <article class="product reveal">
-        <div class="media"><span class="badge">Herbal</span><img src="E8E82679-4BB8-4F43-A379-1713358C2DD7.png" alt="RAPTOR Herbal Roll-On"></div>
-        <div class="body">
-          <span class="kicker">50 ml · Herbal Roll-On</span>
-          <h3>RAPTOR Herbal Roll-On</h3>
-          <p>โรลออนสมุนไพรพรีเมียม ให้ความรู้สึกอุ่นและกลิ่นสมุนไพรไทย เหมาะนวดวอร์มและผ่อนคลายกล้ามเนื้อ</p>
-          <div class="foot"><span class="price">฿179<s>฿290</s></span><a class="btn btn-ghost" href="roll-on.html" onclick="track('ViewContent')">ดูรายละเอียด</a></div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 lg:px-8 py-8">
+        
+        <section class="mb-12 text-center md:text-left md:flex md:items-center md:justify-between bg-gradient-to-r from-gray-900 to-slate-900 rounded-3xl p-8 md:p-12 border border-gray-800 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-orange-600/10 rounded-full blur-3xl"></div>
+            <div class="absolute -left-16 -top-16 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
+            
+            <div class="max-w-2xl z-10 relative">
+                <span class="bg-orange-500/10 text-orange-500 text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wider border border-orange-500/20 inline-block mb-4">ระบบสั่งสินค้าสำหรับดีลเลอร์</span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+                    เติมพลังให้ธุรกิจคุณ ด้วยผลิตภัณฑ์ <span class="gradient-text">RAPTOR</span> ราคาส่งระดับโรงงาน
+                </h1>
+                <p class="text-gray-400 text-base md:text-lg mb-6 leading-relaxed">
+                    ศูนย์รวมนวัตกรรมดูแลกล้ามเนื้อและอาหารเสริมสำหรับนักกีฬาประสิทธิภาพสูง สั่งซื้อสะดวกผ่านระบบคำนวณราคาส่วนลดตามขั้นบันไดอัตโนมัติ ยิ่งสั่งเยอะ ต้นทุนยิ่งลด กำไรยิ่งเพิ่ม
+                </p>
+                <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                    <a href="#catalog" class="bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-orange-600/20 transition-all text-sm flex items-center">
+                        <i class="fa-solid fa-layer-group mr-2"></i> เริ่มคำนวณและสั่งซื้อสินค้า
+                    </a>
+                    <a href="#terms" class="bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium px-6 py-3 rounded-xl transition-all text-sm border border-gray-700 flex items-center">
+                        <i class="fa-solid fa-file-shield mr-2"></i> อ่านข้อตกลงตัวแทน
+                    </a>
+                </div>
+            </div>
+            <div class="hidden md:grid grid-cols-2 gap-4 max-w-sm w-full ml-8">
+                <div class="bg-gray-800/40 border border-gray-800 p-5 rounded-2xl text-center">
+                    <div class="text-orange-500 text-2xl font-bold mb-1">50 ชิ้น</div>
+                    <div class="text-xs text-gray-400">ขั้นต่ำราคาส่งเริ่มต้น คละสายผลิตภัณฑ์ได้</div>
+                </div>
+                <div class="bg-gray-800/40 border border-gray-800 p-5 rounded-2xl text-center">
+                    <div class="text-blue-400 text-2xl font-bold mb-1">10,000+</div>
+                    <div class="text-xs text-gray-400">เรทราคาพิเศษสูงสุดสำหรับดีลเลอร์รายใหญ่</div>
+                </div>
+                <div class="bg-gray-800/40 border border-gray-800 p-5 rounded-2xl text-center">
+                    <div class="text-emerald-400 text-2xl font-bold mb-1">1-2 วัน</div>
+                    <div class="text-xs text-gray-400">จัดส่งว่องไวจากคลังสินค้าจังหวัดอุตรดิตถ์</div>
+                </div>
+                <div class="bg-gray-800/40 border border-gray-800 p-5 rounded-2xl text-center">
+                    <div class="text-amber-400 text-2xl font-bold mb-1">Premium</div>
+                    <div class="text-xs text-gray-400">สนับสนุนสื่อการตลาด ภาพ วิดีโอ รีวิว ฟรี</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="terms" class="mb-12 bg-[#111827] border border-gray-800 rounded-2xl p-6 shadow-xl">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i class="fa-solid fa-shield-halved text-orange-500 mr-2.5"></i> ข้อตกลงและเงื่อนไขการเป็นตัวแทนจำหน่ายแบรนด์ RAPTOR
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6 text-sm text-gray-400">
+                <div class="bg-gray-900/60 p-4 rounded-xl border border-gray-800/80">
+                    <div class="text-white font-semibold flex items-center mb-2">
+                        <i class="fa-solid fa-ban text-red-500 mr-2"></i> นโยบายราคาขายปลีก (MAP)
+                    </div>
+                    <p class="leading-relaxed text-xs">
+                        ห้ามตัดราคาตลาดเด็ดขาด ต้องจำหน่ายสินค้าในราคาไม่ต่ำกว่า 80% ของราคาหน้า Shopee/TikTok หลัก หากตรวจพบ บริษัทขอสงวนสิทธิ์ระงับการจัดส่งสินค้าและยกเลิกสถานะตัวแทนทันที
+                    </p>
+                </div>
+                <div class="bg-gray-900/60 p-4 rounded-xl border border-gray-800/80">
+                    <div class="text-white font-semibold flex items-center mb-2">
+                        <i class="fa-solid fa-truck-fast text-orange-500 mr-2"></i> การสั่งซื้อและการจัดส่ง
+                    </div>
+                    <p class="leading-relaxed text-xs">
+                        การสั่งซื้อครั้งแรกขั้นต่ำ 50 หรือ 100 ชิ้น ชำระค่าสินค้าเต็มจำนวนก่อนการจัดส่ง สินค้าดำเนินการแพ็คและจัดส่งอย่างรวดเร็วจากคลังสินค้าหลักที่จังหวัดอุตรดิตถ์ ภายใน 1-2 วันทำการ
+                    </p>
+                </div>
+                <div class="bg-gray-900/60 p-4 rounded-xl border border-gray-800/80">
+                    <div class="text-white font-semibold flex items-center mb-2">
+                        <i class="fa-solid fa-images text-blue-500 mr-2"></i> สิทธิ์สื่อการตลาดและการรับประกัน
+                    </div>
+                    <p class="leading-relaxed text-xs">
+                        ตัวแทนสามารถใช้ภาพ วิดีโอรีวิว และสื่อโฆษณาจากเพจหลักไปใช้ประกอบการขายได้โดยห้ามดัดแปลงโลโก้ สินค้าชำรุดเคลมชิ้นใหม่ได้ภายใน 7 วัน ไม่รับคืนสินค้าในกรณีที่ตัวแทนขายไม่ได้
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalog" class="mb-12">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-black text-white tracking-tight flex items-center">
+                        <i class="fa-solid fa-box-open text-orange-500 mr-3"></i> แคตตาล็อกสินค้าราคาส่งขั้นบันได
+                    </h2>
+                    <p class="text-xs md:text-sm text-gray-400 mt-1">ราคาจะปรับลดลงโดยอัตโนมัติเมื่อป้อนจำนวนสินค้าเข้าเกณฑ์ขั้นต่ำของแต่ละเรท</p>
+                </div>
+                <div class="mt-3 md:mt-0 text-xs text-gray-400 bg-gray-900/80 px-4 py-2 rounded-xl border border-gray-800 inline-block self-start">
+                    * ราคาส่งยังไม่รวมค่าจัดส่ง และ Vat 7%
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="product-container">
+                </div>
+        </section>
+
+        <section id="cart-section" class="grid lg:grid-cols-3 gap-8 items-start mb-16">
+            
+            <div class="lg:col-span-2 bg-[#131a26] border border-gray-800 rounded-2xl p-6 shadow-xl">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center justify-between">
+                    <span class="flex items-center"><i class="fa-solid fa-list-check text-orange-500 mr-2.5"></i> รายการสั่งซื้อที่เลือก</span>
+                    <button onclick="clearCart()" class="text-xs text-gray-500 hover:text-red-400 transition-colors flex items-center space-x-1">
+                        <i class="fa-solid fa-trash-can"></i> <span>ล้างรายการทั้งหมด</span>
+                    </button>
+                </h3>
+                
+                <div id="cart-items-wrapper" class="space-y-3 max-h-[450px] overflow-y-auto pr-2">
+                    <div class="text-center py-12 text-gray-500 text-sm">
+                        <i class="fa-solid fa-basket-shopping text-3xl mb-3 block opacity-30"></i>
+                        ยังไม่มีสินค้าในตะกร้า กรุณาเลือกจำนวนสินค้าด้านบนเพื่อเริ่มคำนวณราคาส่ง
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-b from-[#182232] to-[#131a26] border border-gray-700/60 rounded-2xl p-6 shadow-2xl sticky top-24">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center border-b border-gray-800 pb-3">
+                    <i class="fa-solid fa-calculator text-blue-400 mr-2.5"></i> สรุปมูลค่าใบสั่งซื้อราคาส่ง
+                </h3>
+                
+                <div class="space-y-3 text-sm mb-6">
+                    <div class="flex justify-between text-gray-400">
+                        <span>จำนวนสินค้ารวม:</span>
+                        <span id="summary-total-qty" class="font-bold text-white">0 ชิ้น</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>ราคารวมสินค้าราคาส่ง:</span>
+                        <span id="summary-subtotal" class="font-bold text-white">฿0.00</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>ภาษีมูลค่าเพิ่ม (VAT 7%):</span>
+                        <span id="summary-vat" class="font-bold text-gray-300">฿0.00</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400 pb-3 border-b border-gray-800">
+                        <span>ค่าจัดส่ง (เหมาจ่ายด่วน):</span>
+                        <span id="summary-shipping" class="font-bold text-emerald-400">฿0.00</span>
+                    </div>
+                    <div class="flex justify-between text-base pt-2">
+                        <span class="font-bold text-white">ยอดสุทธิรวมทั้งสิ้น:</span>
+                        <span id="summary-grandtotal" class="font-extrabold text-orange-500 text-lg">฿0.00</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800 text-xs text-gray-400 space-y-1.5">
+                        <div class="flex items-center text-amber-500 font-medium">
+                            <i class="fa-solid fa-circle-info mr-1.5"></i> ตรวจสอบสิทธิ์ราคาส่งขั้นต่ำ:
+                        </div>
+                        <div id="wholesale-status-text" class="text-red-400 font-medium">
+                            ❌ ยอดสั่งซื้อยังไม่ถึงขั้นต่ำ 50 ชิ้น
+                        </div>
+                    </div>
+                    
+                    <button id="checkout-btn" disabled class="w-full bg-gray-700 text-gray-400 cursor-not-allowed font-bold py-3.5 px-4 rounded-xl text-center text-sm shadow-lg transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <span>ยืนยันรายการสั่งซื้อและส่งข้อมูลให้เจ้าหน้าที่</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer id="contact" class="bg-[#070a10] border-t border-gray-800 mt-auto">
+        <div class="max-w-7xl w-full mx-auto px-4 lg:px-8 py-12">
+            <div class="grid md:grid-cols-12 gap-8 items-start">
+                
+                <div class="md:col-span-5 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-gradient-to-br from-orange-600 to-amber-500 text-white p-2 rounded-xl font-black tracking-wider text-lg">
+                            RAPTOR
+                        </div>
+                        <span class="text-xl font-extrabold text-orange-500 tracking-tight">Raptor Global Import Co., Ltd.</span>
+                    </div>
+                    <p class="text-sm text-gray-400 leading-relaxed max-w-md">
+                        ผู้จัดจำหน่ายผลิตภัณฑ์ดูแลกล้ามเนื้อและอาหารเสริมประสิทธิภาพสูงสำหรับนักกีฬา มุ่งมั่นพัฒนานวัตกรรมสินค้าเพื่อตอบโจทย์ผู้รักการออกกำลังกายและสนับสนุนความสำเร็จของพันธมิตรตัวแทนจำหน่ายทั่วประเทศ
+                    </p>
+                </div>
+
+                <div class="md:col-span-4 space-y-3 text-sm text-gray-400">
+                    <h4 class="text-white font-bold text-base uppercase tracking-wider mb-2 border-l-2 border-orange-500 pl-2">ข้อมูลติดต่อสำนักงาน</h4>
+                    <div class="flex items-start space-x-3">
+                        <i class="fa-solid fa-location-dot text-orange-500 mt-1 text-base w-4 text-center"></i>
+                        <span><strong>ที่ตั้งคลังสินค้าหลัก:</strong> จังหวัดอุตรดิตถ์, ประเทศไทย</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-envelope text-orange-500 text-base w-4 text-center"></i>
+                        <span><strong>อีเมลฝ่ายขาย:</strong> <a href="mailto:support@raptor-global.com" class="hover:text-white transition-colors">support@raptor-global.com</a></span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-globe text-orange-500 text-base w-4 text-center"></i>
+                        <span><strong>เว็บไซต์ทางการ:</strong> <a href="http://www.raptor-global.com" target="_blank" class="hover:text-white transition-colors">www.raptor-global.com</a></span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-comment-dots text-orange-500 text-base w-4 text-center"></i>
+                        <span><strong>LINE Official ID:</strong> <span class="text-white font-bold bg-gray-900 px-2 py-0.5 rounded border border-gray-800">@raptor</span></span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3 space-y-4">
+                    <h4 class="text-white font-bold text-base uppercase tracking-wider border-l-2 border-orange-500 pl-2">Shop & Follow Us</h4>
+                    <p class="text-xs text-gray-500">ติดตามข่าวสาร โปรโมชั่นตัวแทน และสื่อโฆษณาผ่านช่องทางโซเชียลมีเดียหลัก</p>
+                    <div class="flex flex-col space-y-2">
+                        <a href="#" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
+                            <i class="fa-brands fa-tiktok text-base text-pink-500"></i>
+                            <span>TikTok @raptorofficial</span>
+                        </a>
+                        <a href="#" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
+                            <i class="fa-brands fa-facebook text-base text-blue-500"></i>
+                            <span>Facebook Page: RAPTOR Thailand</span>
+                        </a>
+                        <a href="#" class="bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-800 transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-message text-base text-emerald-500"></i>
+                            <span>LINE Chat Official Support</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="border-t border-gray-900 mt-12 pt-6 text-center text-xs text-gray-500 flex flex-col sm:flex-row sm:justify-between items-center space-y-2 sm:space-y-0">
+                <div>&copy; 2026 Raptor Global Import Co., Ltd. All Rights Reserved.</div>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-gray-400">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#" class="hover:text-gray-400">เงื่อนไขการใช้งาน</a>
+                </div>
+            </div>
         </div>
-      </article>
-    </div>
-  </div>
-</section>
+    </footer>
 
-<section class="block" id="why">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Why RAPTOR</span>
-      <h2 class="font-head">ออกแบบมาเพื่อคนที่ไม่หยุดเคลื่อนไหว</h2>
-      <p>ทุกสูตรของ RAPTOR ผ่านการคิดมาเพื่อสายสปอร์ต — ใช้งานจริง รู้สึกได้จริง</p>
-    </div>
-    <div class="features">
-      <div class="feature reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg></div>
-        <h3>Instant Cooling</h3>
-        <p>ให้ความรู้สึกเย็นสดชื่นทันทีหลังออกกำลังกาย หรือหลังใช้งานกล้ามเนื้อหนัก ช่วยให้รู้สึกผ่อนคลาย</p>
-      </div>
-      <div class="feature reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
-        <h3>Sport Ready</h3>
-        <p>ออกแบบมาเพื่อนักกีฬา ฟิตเนส ฟุตบอล วิ่ง และกิจกรรมกลางแจ้ง พกพาง่าย ใช้ได้ทุกสนาม</p>
-      </div>
-      <div class="feature reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Premium Quality</h3>
-        <p>แบรนด์สปอร์ตพรีเมียม ภาพลักษณ์น่าเชื่อถือ คัดสูตรและส่วนผสมที่ให้สัมผัสคุณภาพในทุกการใช้งาน</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <script>
+        // Static Wholesale Product Matrix Configuration
+        const products = [
+            {
+                id: "p1",
+                name: "สเปรย์เย็น (Sports Ice Cold Spray)",
+                spec: "ขนาด 250ml / สูตรน้ำแข็งดับเบิ้ลคูล สำหรับนักกีฬา",
+                icon: "fa-snowflake text-blue-400",
+                tiers: [
+                    { min: 50, price: 61 },
+                    { min: 100, price: 59 },
+                    { min: 1000, price: 58 },
+                    { min: 10000, price: 57 }
+                ],
+                defaultPrice: 65
+            },
+            {
+                id: "p2",
+                name: "สเปรย์ร้อน (Sport Warming Spray)",
+                spec: "ขนาด 150ml / วอร์มกล้ามเนื้อก่อนและหลังกีฬาคลายปวด",
+                icon: "fa-fire-flame-curved text-orange-500",
+                tiers: [
+                    { min: 50, price: 61 },
+                    { min: 100, price: 59 },
+                    { min: 1000, price: 58 },
+                    { min: 10000, price: 57 }
+                ],
+                defaultPrice: 65
+            },
+            {
+                id: "p3",
+                name: "น้ำมันนวดหัวลูกกลิ้ง (Massage Oil Steel Rollerball)",
+                spec: "ขนาด 10ml / หัวลูกกลิ้งสแตนเลส สารสกัดธรรมชาตินุ่มนวล",
+                icon: "fa-oil-can text-amber-500",
+                tiers: [
+                    { min: 50, price: 71 },
+                    { min: 100, price: 68 },
+                    { min: 1000, price: 66 },
+                    { min: 10000, price: 65 }
+                ],
+                defaultPrice: 75
+            },
+            {
+                id: "p4",
+                name: "แผ่นแปะเย็นประคบ (Raptor Cool Patch)",
+                spec: "บรรจุ 6 แผ่น/กล่อง | ขนาด 7x10 cm แอดวานซ์เมนทอล",
+                icon: "fa-sheet-plastic text-teal-400",
+                tiers: [
+                    { min: 50, price: 93 },
+                    { min: 100, price: 90 },
+                    { min: 1000, price: 88 },
+                    { min: 10000, price: 86 }
+                ],
+                defaultPrice: 98
+            },
+            {
+                id: "p5",
+                name: "เจลให้พลังงานทันที (Raptor Go Energy Gel)",
+                spec: "รสโคล่า (Cola Flavor) บรรจุ 10 ซอง/กล่องใหญ่ ให้พลังงาน 120 kcal",
+                icon: "fa-bolt text-yellow-400",
+                tiers: [
+                    { min: 50, price: 170 },
+                    { min: 100, price: 164 },
+                    { min: 1000, price: 161 },
+                    { min: 10000, price: 157 }
+                ],
+                defaultPrice: 180
+            },
+            {
+                id: "p6",
+                name: "เครื่องดื่มเกลือแร่ (Raptor Speed Water Charge)",
+                spec: "กลิ่นแตงโม ไฮเดรชันวิตามิน B1/B6/B12 | บรรจุ 6g x 20 ซอง",
+                icon: "fa-bottle-water text-cyan-400",
+                tiers: [
+                    { min: 50, price: 241 },
+                    { min: 100, price: 232 },
+                    { min: 1000, price: 227 },
+                    { min: 10000, price: 222 }
+                ],
+                defaultPrice: 250
+            },
+            {
+                id: "p7",
+                name: "หัวพ่นแก๊สกระป๋องอเนกประสงค์ (Flame Thrower)",
+                spec: "สามารถคละรุ่น v.1, v.2, v.3 ได้ ทนทาน แข็งแรง ปลอดภัยสูง",
+                icon: "fa-gun text-red-400",
+                tiers: [
+                    { min: 50, price: 177 },
+                    { min: 100, price: 170 },
+                    { min: 1000, price: 167 },
+                    { min: 10000, price: 163 }
+                ],
+                defaultPrice: 190
+            }
+        ];
 
-<section class="block" id="ice">
-  <div class="wrap showcase">
-    <div class="visual reveal"><img src="Artboard 1_0.jpg" alt="RAPTOR Ice Cold Spray เย็นx2"></div>
-    <div class="reveal">
-      <span class="eyebrow">Ice Cold Spray</span>
-      <h2 class="font-head" style="margin-top:14px">เย็นรวดเร็ว<br>ระหว่างเล่นกีฬา</h2>
-      <ul>
-        <li><span class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span><b>เย็น x2 สูตรใหม่</b> — ให้ความเย็นรวดเร็วเป็นสองเท่า สดชื่นทันทีที่ฉีด</span></li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span><b>พกพาสะดวก</b> — ขนาด 250 ml ติดกระเป๋าไปสนามได้ทุกที่</span></li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span><b>เหมาะกับทุกกีฬา</b> — วิ่ง ฟุตบอล ฟิตเนส และกิจกรรมกลางแจ้ง</span></li>
-      </ul>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="https://lin.ee/X56gq67" target="_blank" rel="noopener" onclick="track('Lead')">สั่งซื้อ Ice Cold Spray</a>
-        <a class="btn btn-ghost" href="#reviews">อ่านรีวิว</a>
-      </div>
-    </div>
-  </div>
-</section>
+        // Central State Store
+        let cart = {};
 
-<section class="block" style="padding-top:0">
-  <div class="wrap">
-    <div class="stats">
-      <div class="stat reveal"><b>1,200+</b><span>ลูกค้าใช้งานจริง</span></div>
-      <div class="stat reveal"><b>4.9/5</b><span>คะแนนรีวิวเฉลี่ย</span></div>
-      <div class="stat reveal"><b>x2</b><span>ความเย็นสูตรใหม่</span></div>
-      <div class="stat reveal"><b>24ชม.</b><span>จัดส่งไว</span></div>
-    </div>
-  </div>
-</section>
+        // Helper function to calculate active unit price based on single product quantity tier
+        function getUnitPrice(product, quantity) {
+            let activePrice = product.defaultPrice;
+            // Iterate reverse or sorted to find matching threshold
+            const sortedTiers = [...product.tiers].sort((a, b) => b.min - a.min);
+            for (let tier of sortedTiers) {
+                if (quantity >= tier.min) {
+                    activePrice = tier.price;
+                    break;
+                }
+            }
+            return activePrice;
+        }
 
-<section class="block" id="reviews">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Real User Feedback</span>
-      <h2 class="font-head">เสียงจริงจากสายสปอร์ต</h2>
-      <p>รีวิวจากลูกค้าที่ใช้งานจริงทั้งสายวิ่ง ฟุตบอล และฟิตเนส</p>
-    </div>
-    <div class="reviews">
-      <div class="review reveal">
-        <div class="mini">★★★★★</div>
-        <p>“ใช้หลังเตะบอลแล้วรู้สึกเย็นสดชื่นมาก ภาพลักษณ์สินค้าดูแพงกว่าสเปรย์ทั่วไป พกง่ายด้วย”</p>
-        <div class="who"><span class="av">บ</span><span><b>คุณบอล</b><small>นักวิ่งสมัครเล่น</small></span></div>
-      </div>
-      <div class="review reveal">
-        <div class="mini">★★★★★</div>
-        <p>“ชอบหัวโรลออนมาก ไม่เลอะมือ ใช้บริเวณบ่าไหล่ตอนทำงานนาน ๆ แล้วรู้สึกผ่อนคลาย”</p>
-        <div class="who"><span class="av">ม</span><span><b>คุณมุก</b><small>พนักงานออฟฟิศ</small></span></div>
-      </div>
-      <div class="review reveal">
-        <div class="mini">★★★★★</div>
-        <p>“ฉีดก่อนและหลังเล่นเวท เย็นกำลังดี รู้สึกพร้อมลุยต่อ คุ้มราคามาก สั่งซ้ำแน่นอน”</p>
-        <div class="who"><span class="av">เ</span><span><b>คุณเอ</b><small>สายเล่นเวท</small></span></div>
-      </div>
-    </div>
-    <p style="text-align:center;color:var(--mut);font-size:13px;margin-top:26px">รีวิวเป็นความคิดเห็นด้านความพึงพอใจส่วนบุคคล ผลลัพธ์อาจแตกต่างกันตามการใช้งาน</p>
-  </div>
-</section>
+        // Initialize and render product items catalog list view
+        function renderCatalog() {
+            const container = document.getElementById('product-container');
+            container.innerHTML = '';
 
-<section class="block">
-  <div class="wrap">
-    <div class="cta-band reveal">
-      <span class="eyebrow">Ready to cool down?</span>
-      <h2 class="font-head" style="margin-top:12px">พร้อมลุยทุกสนามกับ RAPTOR</h2>
-      <p>สั่งซื้อง่าย ๆ ผ่าน LINE ส่งไวทั่วไทย พร้อมโปรพิเศษสำหรับลูกค้าใหม่วันนี้</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="https://lin.ee/X56gq67" target="_blank" rel="noopener" onclick="track('Lead')">สั่งซื้อทาง LINE</a>
-        <a class="btn btn-ghost" href="#products">ดูสินค้าทั้งหมด</a>
-      </div>
-    </div>
-  </div>
-</section>
+            products.forEach(prod => {
+                const qty = cart[prod.id] || 0;
+                const unitPrice = getUnitPrice(prod, qty);
+                
+                // Create tier row tags layout elements
+                let tierLabels = '';
+                prod.tiers.forEach(t => {
+                    tierLabels += `
+                        <div class="flex justify-between items-center text-xs py-1 px-2 rounded ${qty >= t.min ? 'bg-orange-500/10 text-orange-400 font-bold border border-orange-500/30' : 'bg-gray-900/60 text-gray-500'}">
+                            <span>เรทสั่งซื้อ ${t.min.toLocaleString()}+ ชิ้น</span>
+                            <span>฿${t.price}.-</span>
+                        </div>
+                    `;
+                });
 
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <a href="#top" class="brand"><span class="mark">R</span><span><b>RAPTOR</b><small>Sport Performance</small></span></a>
-        <p>แบรนด์ดูแลกล้ามเนื้อสายสปอร์ตพรีเมียม สเปรย์เย็น และสมุนไพร พร้อมลุยทุกสนาม</p>
-      </div>
-      <div class="foot-links">
-        <div class="foot-col">
-          <h4>สินค้า</h4>
-          <a href="#products">Ice Cold Spray</a>
-          <a href="#ice">เย็น x2 สูตรใหม่</a>
-          <a href="roll-on.html">Herbal Roll-On</a>
-        </div>
-        <div class="foot-col">
-          <h4>แบรนด์</h4>
-          <a href="#why">จุดเด่น</a>
-          <a href="#reviews">รีวิว</a>
-          <a href="https://lin.ee/X56gq67" target="_blank" rel="noopener">สั่งซื้อ / ติดต่อ</a>
-        </div>
-      </div>
-    </div>
-    <div class="copy">
-      <span>© <span id="yr"></span> RAPTOR Sport Performance. All rights reserved.</span>
-      <span>Cool down like an athlete.</span>
-    </div>
-  </div>
-</footer>
+                const cardHtml = `
+                    <div class="custom-card rounded-2xl p-5 flex flex-col justify-between transition-all relative">
+                        <div>
+                            <div class="flex items-start justify-between mb-2">
+                                <div class="bg-gray-900 p-2.5 rounded-xl border border-gray-800">
+                                    <i class="fa-solid ${prod.icon} text-lg w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] text-gray-500 uppercase tracking-wider block">เรทราคาปัจจุบัน</span>
+                                    <span class="text-lg font-black text-white" id="current-unit-price-${prod.id}">฿${qty > 0 ? unitPrice : prod.tiers[0].price}.-</span>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-base font-bold text-white mb-1 leading-tight">${prod.name}</h3>
+                            <p class="text-xs text-gray-400 mb-4 h-8 overflow-hidden">${prod.spec}</p>
+                            
+                            <div class="space-y-1 bg-black/20 p-2 rounded-xl mb-4 border border-gray-800/60">
+                                <div class="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1 px-1">ตารางขั้นบันไดราคาขายส่ง</div>
+                                ${tierLabels}
+                            </div>
+                        </div>
 
-<script>
-function track(ev){try{if(window.fbq)fbq('track',ev)}catch(e){}}
-// year
-document.getElementById('yr').textContent=new Date().getFullYear();
-// sticky header
-const header=document.getElementById('header');
-const onScroll=()=>header.classList.toggle('scrolled',window.scrollY>10);
-onScroll();addEventListener('scroll',onScroll,{passive:true});
-// mobile menu
-const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
-toggle.addEventListener('click',()=>links.classList.toggle('open'));
-links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
-// scroll reveal
-const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-</script>
+                        <div>
+                            <div class="flex items-center justify-between mb-3 bg-gray-900/80 p-1.5 rounded-xl border border-gray-800">
+                                <button onclick="adjustQty('${prod.id}', -1)" class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-bold text-center transition-colors flex items-center justify-center">-</button>
+                                <input type="number" min="0" value="${qty}" onchange="updateQtyInput('${prod.id}', this.value)" class="bg-transparent text-center w-20 text-white font-extrabold focus:outline-none text-base" id="input-qty-${prod.id}">
+                                <button onclick="adjustQty('${prod.id}', 1)" class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-bold text-center transition-colors flex items-center justify-center">+</button>
+                            </div>
+                            
+                            <div class="grid grid-cols-4 gap-1.5">
+                                <button onclick="setPresetQty('${prod.id}', 50)" class="text-[10px] bg-gray-900 hover:bg-orange-600/20 hover:text-orange-400 border border-gray-800 py-1 rounded font-medium transition-all">+50</button>
+                                <button onclick="setPresetQty('${prod.id}', 100)" class="text-[10px] bg-gray-900 hover:bg-orange-600/20 hover:text-orange-400 border border-gray-800 py-1 rounded font-medium transition-all">+100</button>
+                                <button onclick="setPresetQty('${prod.id}', 1000)" class="text-[10px] bg-gray-900 hover:bg-orange-600/20 hover:text-orange-400 border border-gray-800 py-1 rounded font-medium transition-all">+1k</button>
+                                <button onclick="setPresetQty('${prod.id}', 0)" class="text-[10px] bg-gray-900/40 hover:bg-red-900/30 hover:text-red-400 border border-gray-800 py-1 rounded text-gray-500 font-medium transition-all">เคลียร์</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        // Action Handlers
+        function adjustQty(productId, amount) {
+            let current = cart[productId] || 0;
+            let target = current + amount;
+            if (target < 0) target = 0;
+            cart[productId] = target;
+            if (target === 0) delete cart[productId];
+            
+            recalculateAndSync();
+        }
+
+        function setPresetQty(productId, amount) {
+            if(amount === 0) {
+                delete cart[productId];
+            } else {
+                cart[productId] = (cart[productId] || 0) + amount;
+            }
+            recalculateAndSync();
+        }
+
+        function updateQtyInput(productId, value) {
+            let num = parseInt(value) || 0;
+            if (num < 0) num = 0;
+            if (num === 0) {
+                delete cart[productId];
+            } else {
+                cart[productId] = num;
+            }
+            recalculateAndSync();
+        }
+
+        function clearCart() {
+            cart = {};
+            recalculateAndSync();
+        }
+
+        // Calculations and UI re-sync core workflow loop engine
+        function recalculateAndSync() {
+            // 1. Refresh Catalog Cards view states
+            renderCatalog();
+
+            // 2. Render Cart summary listing elements
+            const cartItemsWrapper = document.getElementById('cart-items-wrapper');
+            let activeItemsCount = Object.keys(cart).length;
+            
+            if (activeItemsCount === 0) {
+                cartItemsWrapper.innerHTML = `
+                    <div class="text-center py-12 text-gray-500 text-sm">
+                        <i class="fa-solid fa-basket-shopping text-3xl mb-3 block opacity-30"></i>
+                        ยังไม่มีสินค้าในตะกร้า กรุณาเลือกจำนวนสินค้าด้านบนเพื่อเริ่มคำนวณราคาส่ง
+                    </div>
+                `;
+                
+                document.getElementById('cart-count-badge').innerText = '0';
+                document.getElementById('summary-total-qty').innerText = '0 ชิ้น';
+                document.getElementById('summary-subtotal').innerText = '฿0.00';
+                document.getElementById('summary-vat').innerText = '฿0.00';
+                document.getElementById('summary-shipping').innerText = '฿0.00';
+                document.getElementById('summary-grandtotal').innerText = '฿0.00';
+                
+                const wStatus = document.getElementById('wholesale-status-text');
+                wStatus.innerHTML = '❌ ยอดสั่งซื้อยังไม่ถึงขั้นต่ำ 50 ชิ้น';
+                wStatus.className = 'text-red-400 font-medium';
+                
+                const checkBtn = document.getElementById('checkout-btn');
+                checkBtn.disabled = true;
+                checkBtn.className = 'w-full bg-gray-700 text-gray-400 cursor-not-allowed font-bold py-3.5 px-4 rounded-xl text-center text-sm shadow-lg transition-all flex items-center justify-center space-x-2';
+                return;
+            }
+
+            let totalQty = 0;
+            let subtotal = 0;
+            let cartHtml = '';
+
+            // Compute details for each cart line item element
+            for (let pId in cart) {
+                const prod = products.find(p => p.id === pId);
+                const qty = cart[pId];
+                const unitPrice = getUnitPrice(prod, qty);
+                const itemCost = unitPrice * qty;
+
+                totalQty += qty;
+                subtotal += itemCost;
+
+                cartHtml += `
+                    <div class="bg-gray-900/70 p-4 rounded-xl border border-gray-800 flex items-center justify-between flex-wrap md:flex-nowrap gap-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-orange-500 bg-gray-800 p-2 rounded-lg text-sm border border-gray-700">
+                                <i class="fa-solid ${prod.icon}"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">${prod.name}</h4>
+                                <span class="text-[11px] text-gray-400 block">${qty.toLocaleString()} ชิ้น &times; ฿${unitPrice}.-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 ml-auto">
+                            <div class="text-right">
+                                <span class="text-xs text-gray-500 block">รวมราคาส่ง</span>
+                                <span class="text-sm font-bold text-white">฿${itemCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                            </div>
+                            <button onclick="setPresetQty('${pId}', 0)" class="text-gray-500 hover:text-red-400 transition-colors p-1 text-sm">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            cartItemsWrapper.innerHTML = cartHtml;
+
+            // Update badge counts and subtotal summaries numbers
+            document.getElementById('cart-count-badge').innerText = activeItemsCount;
+            document.getElementById('summary-total-qty').innerText = `${totalQty.toLocaleString()} ชิ้น`;
+            document.getElementById('summary-subtotal').innerText = `฿${subtotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            
+            // Calculate VAT 7%
+            let vatCost = subtotal * 0.07;
+            document.getElementById('summary-vat').innerText = `฿${vatCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            
+            // Shipping rate rule logic
+            let shippingCost = totalQty >= 1000 ? 0 : 150; // Free shipping above 1000 items, else 150 flate-rate
+            document.getElementById('summary-shipping').innerText = shippingCost === 0 ? 'ส่งฟรีทั่วไทย' : `฿${shippingCost.toFixed(2)}`;
+            if(shippingCost === 0) {
+                document.getElementById('summary-shipping').className = 'font-bold text-emerald-400 animate-pulse';
+            } else {
+                document.getElementById('summary-shipping').className = 'font-bold text-white';
+            }
+
+            // Grand total computation
+            let grandTotal = subtotal + vatCost + shippingCost;
+            document.getElementById('summary-grandtotal').innerText = `฿${grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+            // Check wholesale tier minimum qualification rules
+            const wStatus = document.getElementById('wholesale-status-text');
+            const checkBtn = document.getElementById('checkout-btn');
+
+            if (totalQty >= 50) {
+                wStatus.innerHTML = `✅ ผ่านเกณฑ์ราคาส่งขั้นต่ำ (${totalQty.toLocaleString()}/50 ชิ้น)`;
+                wStatus.className = 'text-emerald-400 font-bold';
+                
+                checkBtn.disabled = false;
+                checkBtn.className = 'w-full bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-bold py-3.5 px-4 rounded-xl text-center text-sm shadow-xl shadow-orange-600/20 cursor-pointer transition-all flex items-center justify-center space-x-2';
+                
+                // Add click listener dynamically for placeholder trigger popup simulation
+                checkBtn.onclick = function() {
+                    alert(`📋 [ระบบสั่งซื้อแบบจำลอง]\n\nบันทึกใบเสนอราคาสำเร็จ!\nยอดสั่งซื้อสุทธิ: ฿${grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}\n\nระบบจะส่งรายการชิ้นงานนี้ไปยังฝ่ายประสานงานแบรนด์ RAPTOR ที่ จังหวัดอุตรดิตถ์ เพื่อเปิดใบแจ้งหนี้อย่างเป็นทางการต่อไป ขอบคุณครับ`);
+                };
+            } else {
+                wStatus.innerHTML = `❌ ยังไม่ถึงขั้นต่ำ 50 ชิ้น (ขาดอีก ${(50 - totalQty).toLocaleString()} ชิ้น)`;
+                wStatus.className = 'text-red-400 font-medium';
+                
+                checkBtn.disabled = true;
+                checkBtn.className = 'w-full bg-gray-700 text-gray-400 cursor-not-allowed font-bold py-3.5 px-4 rounded-xl text-center text-sm shadow-lg transition-all flex items-center justify-center space-x-2';
+                checkBtn.onclick = null;
+            }
+        }
+
+        // On document load startup initialization triggered
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+        });
+    </script>
 </body>
 </html>
+"""
+
+# Write the dynamic portal to an HTML output file
+filename = "raptor_wholesale_portal.html"
+with open(filename, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"File successfully created: {filename}")

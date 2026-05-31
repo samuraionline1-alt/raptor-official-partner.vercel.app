@@ -84,7 +84,24 @@ html_content = """<!DOCTYPE html>
             cursor: pointer;
         }
     </style>
-</head>
+    
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '462184846324554');
+    fbq('track', 'PageView');
+    fbq('track', 'PageView whole sale RAPTOR');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=462184846324554&ev=PageView&noscript=1"
+    /></noscript>
+    </head>
 <body class="text-gray-200 antialiased min-h-screen flex flex-col">
 
     <div class="bg-gradient-to-r from-orange-600 to-amber-600 text-white text-xs md:text-sm font-medium py-2 px-4 text-center">
@@ -405,12 +422,12 @@ html_content = """<!DOCTYPE html>
                 spec: "ขนาด 250ml / สูตรน้ำแข็งดับเบิ้ลคูล สำหรับนักกีฬา",
                 image: "Gemini_Generated_Image_td8ebptd8ebptd8e (1).png",
                 tiers: [
-                    { min: 50, price: 61 },
-                    { min: 100, price: 59 },
-                    { min: 1000, price: 58 },
-                    { min: 10000, price: 57 }
+                    { min: 50, price: 95 },
+                    { min: 100, price: 85 },
+                    { min: 1000, price: 75 },
+                    { min: 10000, price: 65 }
                 ],
-                defaultPrice: 65
+                defaultPrice: 100
             },
             {
                 id: "p2",
@@ -418,12 +435,12 @@ html_content = """<!DOCTYPE html>
                 spec: "ขนาด 150ml / วอร์มกล้ามเนื้อก่อนและหลังกีฬาคลายปวด",
                 image: "S__117481475 (1).jpg",
                 tiers: [
-                    { min: 50, price: 61 },
-                    { min: 100, price: 59 },
-                    { min: 1000, price: 58 },
-                    { min: 10000, price: 57 }
+                    { min: 50, price: 95 },
+                    { min: 100, price: 85 },
+                    { min: 1000, price: 75 },
+                    { min: 10000, price: 65 }
                 ],
-                defaultPrice: 65
+                defaultPrice: 100
             },
             {
                 id: "p3",
@@ -457,12 +474,12 @@ html_content = """<!DOCTYPE html>
                 spec: "รสโคล่า (Cola Flavor) บรรจุ 10 ซอง/กล่องใหญ่ ให้พลังงาน 120 kcal",
                 image: "Gemini_Generated_Image_dihrcjdihrcjdihr.png",
                 tiers: [
-                    { min: 50, price: 170 },
-                    { min: 100, price: 164 },
-                    { min: 1000, price: 161 },
-                    { min: 10000, price: 157 }
+                    { min: 50, price: 255 },
+                    { min: 100, price: 235 },
+                    { min: 1000, price: 210 },
+                    { min: 10000, price: 190 }
                 ],
-                defaultPrice: 180
+                defaultPrice: 280
             },
             {
                 id: "p6",
@@ -470,12 +487,12 @@ html_content = """<!DOCTYPE html>
                 spec: "กลิ่นแตงโม ไฮเดรชันวิตามิน B1/B6/B12 | บรรจุ 6g x 20 ซอง",
                 image: "Gemini_Generated_Image_xg4wwyxg4wwyxg4w.png",
                 tiers: [
-                    { min: 50, price: 241 },
-                    { min: 100, price: 232 },
-                    { min: 1000, price: 227 },
-                    { min: 10000, price: 222 }
+                    { min: 50, price: 275 },
+                    { min: 100, price: 260 },
+                    { min: 1000, price: 230 },
+                    { min: 10000, price: 220 }
                 ],
-                defaultPrice: 250
+                defaultPrice: 300
             }
         ];
 
@@ -792,7 +809,7 @@ html_content = """<!DOCTYPE html>
 """
 
 # Write the dynamic portal to an HTML output file
-filename = "raptor_wholesale_portal_formspree.html"
+filename = "raptor_wholesale_portal_updated_pricing.html"
 with open(filename, "w", encoding="utf-8") as f:
     f.write(html_content)
 

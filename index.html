@@ -293,6 +293,66 @@
 
     </main>
 
+    <section id="thank-you-page" class="hidden max-w-4xl w-full mx-auto px-4 lg:px-8 pb-16">
+        <div class="bg-gradient-to-br from-[#182232] via-[#131a26] to-[#0f1724] border border-emerald-500/30 rounded-3xl p-6 md:p-8 shadow-2xl shadow-emerald-900/20">
+            <div class="text-center border-b border-gray-800 pb-6 mb-6">
+                <div class="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-3xl"></i>
+                </div>
+                <p class="text-emerald-400 font-bold text-sm uppercase tracking-[0.2em] mb-2">Thank You</p>
+                <h2 class="text-2xl md:text-4xl font-black text-white mb-3">ขอบคุณสำหรับคำสั่งซื้อ</h2>
+                <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+                    ระบบได้รับรายการสั่งซื้อแล้ว กรุณาตรวจสอบสรุปรายการและโอนเงินตามยอดสุทธิ จากนั้นกดปุ่ม Add LINE เพื่อส่งสลิปโอนเงินให้ทีมงานยืนยันออเดอร์
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-6">
+                <div class="lg:col-span-3 bg-gray-950/40 border border-gray-800 rounded-2xl p-5">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center">
+                        <i class="fa-solid fa-receipt text-orange-500 mr-2.5"></i> สรุปรายการสินค้า
+                    </h3>
+                    <div id="thank-you-order-items" class="space-y-3"></div>
+                    <div class="mt-5 pt-4 border-t border-gray-800 space-y-2 text-sm">
+                        <div class="flex justify-between text-gray-400"><span>รวมสินค้า</span><span id="thank-you-subtotal" class="text-white font-semibold">฿0.00</span></div>
+                        <div class="flex justify-between text-gray-400"><span>VAT 7%</span><span id="thank-you-vat" class="text-white font-semibold">฿0.00</span></div>
+                        <div class="flex justify-between text-gray-400"><span>ค่าจัดส่ง</span><span id="thank-you-shipping" class="text-white font-semibold">฿0.00</span></div>
+                        <div class="flex justify-between text-base md:text-lg pt-3 border-t border-gray-800"><span class="font-bold text-white">ยอดที่ต้องชำระ</span><span id="thank-you-grandtotal" class="font-black text-orange-500">฿0.00</span></div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-5">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center">
+                            <i class="fa-solid fa-building-columns text-emerald-400 mr-2.5"></i> ข้อมูลบัญชีชำระเงิน
+                        </h3>
+                        <div class="space-y-3 text-sm text-gray-300">
+                            <div>
+                                <div class="text-gray-500 text-xs mb-1">ชื่อบัญชี</div>
+                                <div class="font-bold text-white leading-relaxed">บริษัท แร็พเตอร์ โกลบอล อิมพอร์ต จำกัด</div>
+                            </div>
+                            <div>
+                                <div class="text-gray-500 text-xs mb-1">เลขบัญชี</div>
+                                <div class="text-2xl font-black tracking-wider text-emerald-300">183-4-52840-8</div>
+                            </div>
+                            <div>
+                                <div class="text-gray-500 text-xs mb-1">ธนาคาร</div>
+                                <div class="font-bold text-white">ธนาคาร กสิกรไทย</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://lin.ee/qtuszPa" target="_blank" rel="noopener" class="w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-400 hover:to-green-400 text-white font-black py-4 px-5 rounded-2xl shadow-xl shadow-emerald-900/30 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-line text-2xl"></i>
+                        <span>Add LINE เพื่อแจ้งสลิปโอนเงิน</span>
+                    </a>
+                    <button type="button" onclick="startNewOrder()" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold py-3 px-5 rounded-2xl border border-gray-700 transition-all">
+                        กลับไปสั่งซื้อเพิ่มเติม
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer id="contact" class="bg-[#070a10] border-t border-gray-800 mt-auto">
         <div class="max-w-7xl w-full mx-auto px-4 lg:px-8 py-12">
             <div class="grid md:grid-cols-12 gap-8 items-start">
@@ -500,6 +560,8 @@
         let cart = {};
         let currentGrandTotalText = "";
         let currentOrderSummaryText = "";
+        let currentOrderSnapshot = null;
+        let orderSuccessProcessed = false;
 
         // Helper function to calculate active unit price based on single product quantity tier
         function getUnitPrice(product, quantity) {
@@ -643,12 +705,14 @@
                 
                 currentOrderSummaryText = "";
                 currentGrandTotalText = "฿0.00";
+                currentOrderSnapshot = null;
                 return;
             }
 
             let totalQty = 0;
             let subtotal = 0;
             let cartHtml = '';
+            let orderItemsSnapshot = [];
             let orderSummaryForEmail = "รายละเอียดการสั่งซื้อ:\n";
 
             for (let pId in cart) {
@@ -660,6 +724,13 @@
                 totalQty += qty;
                 subtotal += itemCost;
                 
+                orderItemsSnapshot.push({
+                    name: prod.name,
+                    image: prod.image,
+                    qty,
+                    unitPrice,
+                    itemCost
+                });
                 orderSummaryForEmail += `- ${prod.name} จำนวน ${qty} ชิ้น (@฿${unitPrice}) = ฿${itemCost}\n`;
 
                 cartHtml += `
@@ -711,6 +782,15 @@
             
             orderSummaryForEmail += `\nยอดรวมสินค้า: ฿${subtotal}\nภาษี (7%): ฿${vatCost.toFixed(2)}\nค่าจัดส่ง: ฿${shippingCost}\nยอดรวมสุทธิ: ${currentGrandTotalText}`;
             currentOrderSummaryText = orderSummaryForEmail;
+            currentOrderSnapshot = {
+                items: orderItemsSnapshot,
+                totalQty,
+                subtotal,
+                vatCost,
+                shippingCost,
+                grandTotal,
+                grandTotalText: currentGrandTotalText
+            };
 
             const wStatus = document.getElementById('wholesale-status-text');
             const checkBtn = document.getElementById('checkout-btn');
@@ -730,10 +810,58 @@
             }
         }
 
+        function formatCurrency(amount) {
+            return `฿${amount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+
+        function renderThankYouPage() {
+            if (!currentOrderSnapshot) return;
+
+            const thankYouPage = document.getElementById('thank-you-page');
+            const itemsWrapper = document.getElementById('thank-you-order-items');
+
+            itemsWrapper.innerHTML = currentOrderSnapshot.items.map(item => `
+                <div class="bg-gray-900/70 p-4 rounded-xl border border-gray-800 flex items-center justify-between gap-3">
+                    <div class="flex items-center space-x-3 min-w-0">
+                        <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-700 flex-shrink-0 bg-gray-800 flex items-center justify-center text-gray-500">
+                            <span class="absolute text-sm"><i class="fa-solid fa-box"></i></span>
+                            <img src="${item.image}" alt="${item.name}" class="product-image z-10 relative" onerror="this.style.display='none'">
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-sm font-bold text-white truncate">${item.name}</h4>
+                            <span class="text-[11px] text-gray-400 block">${item.qty.toLocaleString()} ชิ้น × ฿${item.unitPrice}.-</span>
+                        </div>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-xs text-gray-500 block">รวม</span>
+                        <span class="text-sm font-bold text-white">${formatCurrency(item.itemCost)}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('thank-you-subtotal').innerText = formatCurrency(currentOrderSnapshot.subtotal);
+            document.getElementById('thank-you-vat').innerText = formatCurrency(currentOrderSnapshot.vatCost);
+            document.getElementById('thank-you-shipping').innerText = currentOrderSnapshot.shippingCost === 0 ? 'ส่งฟรีทั่วไทย' : formatCurrency(currentOrderSnapshot.shippingCost);
+            document.getElementById('thank-you-grandtotal').innerText = currentOrderSnapshot.grandTotalText;
+
+            closeOrderModal();
+            thankYouPage.classList.remove('hidden');
+            thankYouPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function startNewOrder() {
+            document.getElementById('thank-you-page').classList.add('hidden');
+            clearCart();
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         // Modal Functions
         function openOrderModal() {
+            const orderForm = document.getElementById('orderForm');
+            orderSuccessProcessed = false;
+            orderForm.reset();
             document.getElementById('modal-grand-total').innerText = currentGrandTotalText;
-            // Set hidden fields for Formspree
+            // Set hidden fields for Formspree after reset so order data is submitted correctly
             document.getElementById('fs_order_details').value = currentOrderSummaryText;
             document.getElementById('fs_total_amount').value = currentGrandTotalText;
             
@@ -742,8 +870,7 @@
             // Hide success/error messages if they were shown previously
             document.querySelector('[data-fs-success]').classList.add('hidden');
             document.querySelector('[data-fs-error]').classList.add('hidden');
-            document.getElementById('orderForm').reset();
-            document.getElementById('orderForm').style.display = 'block'; // Ensure form is visible
+            orderForm.style.display = 'block'; // Ensure form is visible
         }
 
         function closeOrderModal() {
@@ -762,45 +889,46 @@
         window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
         formspree('initForm', { formElement: '#orderForm', formId: 'xzdwqaar' });
 
+        function isSuccessMessageVisible() {
+            const successDiv = document.querySelector('[data-fs-success]');
+            if (!successDiv) return false;
+
+            const styles = window.getComputedStyle(successDiv);
+            return styles.display !== 'none' && styles.visibility !== 'hidden' && styles.opacity !== '0';
+        }
+
+        function processSuccessfulOrder() {
+            if (orderSuccessProcessed || !isSuccessMessageVisible()) return;
+
+            orderSuccessProcessed = true;
+            document.getElementById('orderForm').style.display = 'none';
+            renderThankYouPage();
+            clearCart(); // Clear the cart on successful order after the thank-you snapshot is rendered
+        }
+
+        function watchForOrderSuccess() {
+            const startedAt = Date.now();
+            const successWatcher = window.setInterval(() => {
+                processSuccessfulOrder();
+                if (orderSuccessProcessed || Date.now() - startedAt > 10000) {
+                    window.clearInterval(successWatcher);
+                }
+            }, 250);
+        }
+
         // Optional: Custom success handling to hide form
         const orderForm = document.getElementById('orderForm');
-        orderForm.addEventListener('submit', function() {
-             // We can monitor changes. The library handles data-fs-success visibility.
-             // We'll set a timeout to check if success appeared and hide the form if so.
-             setTimeout(() => {
-                 const successDiv = document.querySelector('[data-fs-success]');
-                 if(successDiv && !successDiv.classList.contains('hidden')) {
-                     orderForm.style.display = 'none';
-                     clearCart(); // Clear the cart on successful order
-                 }
-             }, 1500); // Check after a short delay
-        });
+        orderForm.addEventListener('submit', watchForOrderSuccess);
 
         // Initialize
         window.addEventListener('DOMContentLoaded', () => {
             renderCatalog();
             
-            // Add a mutation observer to handle Formspree success properly since it modifies attributes
+            // Add a mutation observer to handle Formspree success properly since it modifies attributes/styles
             const targetNode = document.querySelector('[data-fs-success]');
             if(targetNode) {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.attributeName === "class") {
-                            const isHidden = targetNode.classList.contains('hidden') || targetNode.hasAttribute('hidden');
-                            if (!isHidden) {
-                                document.getElementById('orderForm').style.display = 'none';
-                                clearCart();
-                            }
-                        } else if (mutation.attributeName === "hidden") {
-                             if (!targetNode.hasAttribute('hidden')) {
-                                document.getElementById('orderForm').style.display = 'none';
-                                clearCart();
-                                targetNode.classList.remove('hidden'); // Ensure tailwind class doesn't override
-                             }
-                        }
-                    });
-                });
-                observer.observe(targetNode, { attributes: true });
+                const observer = new MutationObserver(processSuccessfulOrder);
+                observer.observe(targetNode, { attributes: true, attributeFilter: ['class', 'hidden', 'style'] });
             }
         });
     </script>

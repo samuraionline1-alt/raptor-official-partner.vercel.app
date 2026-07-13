@@ -561,6 +561,7 @@
         let currentGrandTotalText = "";
         let currentOrderSummaryText = "";
         let currentOrderSnapshot = null;
+        let orderSuccessProcessed = false;
 
         // Helper function to calculate active unit price based on single product quantity tier
         function getUnitPrice(product, quantity) {
@@ -857,6 +858,7 @@
         // Modal Functions
         function openOrderModal() {
             const orderForm = document.getElementById('orderForm');
+            orderSuccessProcessed = false;
             orderForm.reset();
             document.getElementById('modal-grand-total').innerText = currentGrandTotalText;
             // Set hidden fields for Formspree after reset so order data is submitted correctly
@@ -887,48 +889,46 @@
         window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
         formspree('initForm', { formElement: '#orderForm', formId: 'xzdwqaar' });
 
+        function isSuccessMessageVisible() {
+            const successDiv = document.querySelector('[data-fs-success]');
+            if (!successDiv) return false;
+
+            const styles = window.getComputedStyle(successDiv);
+            return styles.display !== 'none' && styles.visibility !== 'hidden' && styles.opacity !== '0';
+        }
+
+        function processSuccessfulOrder() {
+            if (orderSuccessProcessed || !isSuccessMessageVisible()) return;
+
+            orderSuccessProcessed = true;
+            document.getElementById('orderForm').style.display = 'none';
+            renderThankYouPage();
+            clearCart(); // Clear the cart on successful order after the thank-you snapshot is rendered
+        }
+
+        function watchForOrderSuccess() {
+            const startedAt = Date.now();
+            const successWatcher = window.setInterval(() => {
+                processSuccessfulOrder();
+                if (orderSuccessProcessed || Date.now() - startedAt > 10000) {
+                    window.clearInterval(successWatcher);
+                }
+            }, 250);
+        }
+
         // Optional: Custom success handling to hide form
         const orderForm = document.getElementById('orderForm');
-        orderForm.addEventListener('submit', function() {
-             // We can monitor changes. The library handles data-fs-success visibility.
-             // We'll set a timeout to check if success appeared and hide the form if so.
-             setTimeout(() => {
-                 const successDiv = document.querySelector('[data-fs-success]');
-                 if(successDiv && !successDiv.classList.contains('hidden')) {
-                     orderForm.style.display = 'none';
-                     renderThankYouPage();
-                     clearCart(); // Clear the cart on successful order
-                 }
-             }, 1500); // Check after a short delay
-        });
+        orderForm.addEventListener('submit', watchForOrderSuccess);
 
         // Initialize
         window.addEventListener('DOMContentLoaded', () => {
             renderCatalog();
             
-            // Add a mutation observer to handle Formspree success properly since it modifies attributes
+            // Add a mutation observer to handle Formspree success properly since it modifies attributes/styles
             const targetNode = document.querySelector('[data-fs-success]');
             if(targetNode) {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.attributeName === "class") {
-                            const isHidden = targetNode.classList.contains('hidden') || targetNode.hasAttribute('hidden');
-                            if (!isHidden) {
-                                document.getElementById('orderForm').style.display = 'none';
-                                renderThankYouPage();
-                                clearCart();
-                            }
-                        } else if (mutation.attributeName === "hidden") {
-                             if (!targetNode.hasAttribute('hidden')) {
-                                document.getElementById('orderForm').style.display = 'none';
-                                renderThankYouPage();
-                                clearCart();
-                                targetNode.classList.remove('hidden'); // Ensure tailwind class doesn't override
-                             }
-                        }
-                    });
-                });
-                observer.observe(targetNode, { attributes: true });
+                const observer = new MutationObserver(processSuccessfulOrder);
+                observer.observe(targetNode, { attributes: true, attributeFilter: ['class', 'hidden', 'style'] });
             }
         });
     </script>

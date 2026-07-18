@@ -83,6 +83,29 @@
             text-decoration: none;
             cursor: pointer;
         }
+        .image-container,
+        .zoomable-product-image {
+            cursor: zoom-in;
+        }
+        .image-zoom-modal {
+            z-index: 120;
+            background-color: rgba(0,0,0,0.92);
+            padding: 1rem;
+        }
+        .image-zoom-content {
+            max-width: min(92vw, 900px);
+            max-height: 82vh;
+            object-fit: contain;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.65);
+        }
+        .image-zoom-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.25rem;
+            z-index: 130;
+        }
     </style>
     
     <script>
@@ -420,6 +443,17 @@
         </div>
     </footer>
 
+    <div id="imageZoomModal" class="modal image-zoom-modal items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="imageZoomTitle">
+        <button type="button" class="close image-zoom-close" onclick="closeImageZoom()" aria-label="ปิดรูปขยาย">&times;</button>
+        <div class="w-full flex flex-col items-center justify-center gap-3">
+            <img id="imageZoomImg" src="" alt="" class="image-zoom-content">
+            <div id="imageZoomTitle" class="text-white font-bold text-center text-sm md:text-base px-4"></div>
+            <button type="button" onclick="closeImageZoom()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold py-2 px-5 rounded-xl border border-gray-700 transition-all text-sm">
+                ปิดรูป
+            </button>
+        </div>
+    </div>
+
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeOrderModal()">&times;</span>
@@ -599,10 +633,11 @@
                     <div class="custom-card rounded-2xl p-5 flex flex-col justify-between transition-all relative">
                         <div>
                             <div class="flex items-start justify-between mb-3">
-                                <div class="image-container shadow-lg bg-gray-800 flex items-center justify-center text-gray-500">
+                                <button type="button" onclick="openImageZoom('${prod.image}', '${prod.name.replace(/'/g, "&#39;")}')" class="image-container shadow-lg bg-gray-800 flex items-center justify-center text-gray-500 relative focus:outline-none focus:ring-2 focus:ring-orange-500" aria-label="ขยายดูรูป ${prod.name}">
                                     <span class="absolute text-2xl"><i class="fa-solid fa-box"></i></span>
                                     <img src="${prod.image}" alt="${prod.name}" class="product-image z-10 relative" onerror="this.style.display='none'">
-                                </div>
+                                    <span class="absolute bottom-1 right-1 z-20 bg-black/70 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </button>
                                 <div class="text-right">
                                     <span class="text-[10px] text-gray-500 uppercase tracking-wider block">เรทราคาปัจจุบัน</span>
                                     <span class="text-lg font-black text-white" id="current-unit-price-${prod.id}">฿${qty > 0 ? unitPrice : prod.tiers[0].price}.-</span>
@@ -736,10 +771,10 @@
                 cartHtml += `
                     <div class="bg-gray-900/70 p-4 rounded-xl border border-gray-800 flex items-center justify-between flex-wrap md:flex-nowrap gap-3">
                         <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-700 flex-shrink-0 bg-gray-800 flex items-center justify-center text-gray-500">
+                            <button type="button" onclick="openImageZoom('${prod.image}', '${prod.name.replace(/'/g, "&#39;")}')" class="zoomable-product-image w-12 h-12 rounded-lg overflow-hidden border border-gray-700 flex-shrink-0 bg-gray-800 flex items-center justify-center text-gray-500 relative focus:outline-none focus:ring-2 focus:ring-orange-500" aria-label="ขยายดูรูป ${prod.name}">
                                 <span class="absolute text-sm"><i class="fa-solid fa-box"></i></span>
                                 <img src="${prod.image}" alt="${prod.name}" class="product-image z-10 relative" onerror="this.style.display='none'">
-                            </div>
+                            </button>
                             <div>
                                 <h4 class="text-sm font-bold text-white">${prod.name}</h4>
                                 <span class="text-[11px] text-gray-400 block">${qty.toLocaleString()} ชิ้น &times; ฿${unitPrice}.-</span>
@@ -823,10 +858,10 @@
             itemsWrapper.innerHTML = currentOrderSnapshot.items.map(item => `
                 <div class="bg-gray-900/70 p-4 rounded-xl border border-gray-800 flex items-center justify-between gap-3">
                     <div class="flex items-center space-x-3 min-w-0">
-                        <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-700 flex-shrink-0 bg-gray-800 flex items-center justify-center text-gray-500">
+                        <button type="button" onclick="openImageZoom('${item.image}', '${item.name.replace(/'/g, "&#39;")}')" class="zoomable-product-image w-12 h-12 rounded-lg overflow-hidden border border-gray-700 flex-shrink-0 bg-gray-800 flex items-center justify-center text-gray-500 relative focus:outline-none focus:ring-2 focus:ring-orange-500" aria-label="ขยายดูรูป ${item.name}">
                             <span class="absolute text-sm"><i class="fa-solid fa-box"></i></span>
                             <img src="${item.image}" alt="${item.name}" class="product-image z-10 relative" onerror="this.style.display='none'">
-                        </div>
+                        </button>
                         <div class="min-w-0">
                             <h4 class="text-sm font-bold text-white truncate">${item.name}</h4>
                             <span class="text-[11px] text-gray-400 block">${item.qty.toLocaleString()} ชิ้น × ฿${item.unitPrice}.-</span>
@@ -855,6 +890,26 @@
             document.getElementById('catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        function openImageZoom(imageSrc, imageAlt) {
+            const zoomModal = document.getElementById('imageZoomModal');
+            const zoomImg = document.getElementById('imageZoomImg');
+            const zoomTitle = document.getElementById('imageZoomTitle');
+
+            zoomImg.src = imageSrc;
+            zoomImg.alt = imageAlt;
+            zoomTitle.innerText = imageAlt;
+            zoomModal.style.display = 'flex';
+        }
+
+        function closeImageZoom() {
+            const zoomModal = document.getElementById('imageZoomModal');
+            const zoomImg = document.getElementById('imageZoomImg');
+
+            zoomModal.style.display = 'none';
+            zoomImg.src = '';
+            zoomImg.alt = '';
+        }
+
         // Modal Functions
         function openOrderModal() {
             const orderForm = document.getElementById('orderForm');
@@ -879,11 +934,22 @@
 
         // Close modal if clicked outside
         window.onclick = function(event) {
-            const modal = document.getElementById('orderModal');
-            if (event.target == modal) {
-                modal.style.display = "none";
+            const orderModal = document.getElementById('orderModal');
+            const imageZoomModal = document.getElementById('imageZoomModal');
+            if (event.target == orderModal) {
+                orderModal.style.display = "none";
+            }
+            if (event.target == imageZoomModal) {
+                closeImageZoom();
             }
         }
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeOrderModal();
+                closeImageZoom();
+            }
+        });
 
         // Formspree Integration Setup
         window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };

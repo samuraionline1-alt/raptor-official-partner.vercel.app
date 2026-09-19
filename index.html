@@ -289,6 +289,9 @@
                         <span>ค่าจัดส่ง (เหมาจ่ายด่วน):</span>
                         <span id="summary-shipping" class="font-bold text-emerald-400">฿0.00</span>
                     </div>
+                    <div class="text-[10px] leading-relaxed text-gray-500 pb-3 border-b border-gray-800">
+                        ค่าส่งรวมทุกสินค้า (ยังไม่รวม VAT 7%): ≤100 ชิ้น ฿150 · 101–200 ชิ้น ฿350 · 201–300 ชิ้น ฿500 · 301–400 ชิ้น ฿850 · 401–500 ชิ้น ฿1,000 · มากกว่า 500 ชิ้น ฿1,500
+                    </div>
                     <div class="flex justify-between text-base pt-2">
                         <span class="font-bold text-white">ยอดสุทธิรวมทั้งสิ้น:</span>
                         <span id="summary-grandtotal" class="font-extrabold text-orange-500 text-lg">฿0.00</span>
@@ -525,8 +528,8 @@
             },
             {
                 id: "p2",
-                name: "สเปรย์ร้อน (Sport Warming Spray)",
-                spec: "ขนาด 150ml / วอร์มกล้ามเนื้อก่อนและหลังกีฬาคลายปวด",
+                name: "RAPTOR ELITE PRO สเปรย์สำหรับนักกีฬา สเปรย์สูตรวอร์มอัพ",
+                spec: "ขนาด 250ml / วอร์มกล้ามเนื้อก่อนและหลังกีฬาคลายปวด",
                 image: "S__117481475 (1).jpg",
                 tiers: [
                     { min: 50, price: 95 },
@@ -608,6 +611,16 @@
                 }
             }
             return activePrice;
+        }
+
+        // Shipping is calculated from the combined quantity of every product in the order.
+        function getShippingCost(totalQuantity) {
+            if (totalQuantity <= 100) return 150;
+            if (totalQuantity <= 200) return 350;
+            if (totalQuantity <= 300) return 500;
+            if (totalQuantity <= 400) return 850;
+            if (totalQuantity <= 500) return 1000;
+            return 1500;
         }
 
         // Initialize and render product items catalog list view
@@ -800,22 +813,19 @@
             document.getElementById('summary-total-qty').innerText = `${totalQty.toLocaleString()} ชิ้น`;
             document.getElementById('summary-subtotal').innerText = `฿${subtotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             
-            let vatCost = subtotal * 0.07;
+            const shippingCost = getShippingCost(totalQty);
+            // Both products and shipping prices are exclusive of VAT.
+            let vatCost = (subtotal + shippingCost) * 0.07;
             document.getElementById('summary-vat').innerText = `฿${vatCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             
-            let shippingCost = totalQty >= 1000 ? 0 : 150; 
-            document.getElementById('summary-shipping').innerText = shippingCost === 0 ? 'ส่งฟรีทั่วไทย' : `฿${shippingCost.toFixed(2)}`;
-            if(shippingCost === 0) {
-                document.getElementById('summary-shipping').className = 'font-bold text-emerald-400 animate-pulse';
-            } else {
-                document.getElementById('summary-shipping').className = 'font-bold text-white';
-            }
+            document.getElementById('summary-shipping').innerText = `฿${shippingCost.toFixed(2)}`;
+            document.getElementById('summary-shipping').className = 'font-bold text-white';
 
             let grandTotal = subtotal + vatCost + shippingCost;
             currentGrandTotalText = `฿${grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('summary-grandtotal').innerText = currentGrandTotalText;
             
-            orderSummaryForEmail += `\nยอดรวมสินค้า: ฿${subtotal}\nภาษี (7%): ฿${vatCost.toFixed(2)}\nค่าจัดส่ง: ฿${shippingCost}\nยอดรวมสุทธิ: ${currentGrandTotalText}`;
+            orderSummaryForEmail += `\nยอดรวมสินค้า: ฿${subtotal}\nค่าจัดส่ง: ฿${shippingCost}\nภาษี (7% รวมค่าจัดส่ง): ฿${vatCost.toFixed(2)}\nยอดรวมสุทธิ: ${currentGrandTotalText}`;
             currentOrderSummaryText = orderSummaryForEmail;
             currentOrderSnapshot = {
                 items: orderItemsSnapshot,
